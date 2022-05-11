@@ -1,4 +1,4 @@
-package ua.epam.elearn.selectioncommittee.servlets;
+package ua.epam.elearn.selection.committee.servlets;
 
 import java.io.*;
 import javax.servlet.http.*;
