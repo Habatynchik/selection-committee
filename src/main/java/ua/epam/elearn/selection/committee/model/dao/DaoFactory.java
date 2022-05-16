@@ -9,6 +9,7 @@ public abstract class DaoFactory {
     protected DaoFactory() {}
 
     public abstract UserDao createUserDao();
+    public abstract FacultyDao createFacultyDao();
 
     public static DaoFactory getInstance() {
         if (daoFactory == null) {

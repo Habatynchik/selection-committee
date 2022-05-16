@@ -3,6 +3,7 @@ package ua.epam.elearn.selection.committee.model.entity;
 public class Subject {
     private long id;
     private String name;
+    private int grade;
 
     public Subject() {
     }
@@ -14,6 +15,12 @@ public class Subject {
     public Subject(long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Subject(long id, String name, int grade) {
+        this.id = id;
+        this.name = name;
+        this.grade = grade;
     }
 
     public long getId() {
@@ -32,11 +39,20 @@ public class Subject {
         this.name = name;
     }
 
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
     @Override
     public String toString() {
         return "Subject{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", grade=" + grade +
                 '}';
     }
 }

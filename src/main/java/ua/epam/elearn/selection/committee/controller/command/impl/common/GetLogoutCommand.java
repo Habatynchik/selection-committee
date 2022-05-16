@@ -1,4 +1,4 @@
-package ua.epam.elearn.selection.committee.controller.command.impl.user;
+package ua.epam.elearn.selection.committee.controller.command.impl.common;
 
 import ua.epam.elearn.selection.committee.controller.command.Command;
 import ua.epam.elearn.selection.committee.controller.path.UrlPath;

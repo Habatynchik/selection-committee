@@ -15,7 +15,6 @@ public class FacultyMapper {
                 .addName(rs.getString(Fields.NAME))
                 .addGeneralCapacity(rs.getLong(Fields.GENERAL_CAPACITY))
                 .addBudgetCapacity(rs.getLong(Fields.BUDGET_CAPACITY))
-
                 .build();
     }
 }

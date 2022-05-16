@@ -7,6 +7,9 @@ public abstract class ServiceFactory {
     protected ServiceFactory() {}
 
     public abstract UserService createUserService();
+    public abstract FacultyService createFacultyService();
+
+
    /* public abstract TourService createTourService();
     public abstract OrderService createOrderService();
     public abstract CountryService createCountryService();

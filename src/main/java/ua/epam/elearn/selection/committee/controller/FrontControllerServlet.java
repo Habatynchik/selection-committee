@@ -9,11 +9,12 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import ua.epam.elearn.selection.committee.controller.command.impl.common.GetFacultiesCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.GetLoginCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.GetRegistrationCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.PostLoginCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.PostRegistrationCommand;
-import ua.epam.elearn.selection.committee.controller.command.impl.user.GetLogoutCommand;
+import ua.epam.elearn.selection.committee.controller.command.impl.common.GetLogoutCommand;
 import ua.epam.elearn.selection.committee.controller.path.UrlPath;
 import ua.epam.elearn.selection.committee.model.services.ServiceFactory;
 
@@ -76,6 +77,7 @@ public class FrontControllerServlet extends HttpServlet {
         getCommands.put(UrlPath.REGISTRATION, new GetRegistrationCommand());
         getCommands.put(UrlPath.LOGIN, new GetLoginCommand());
         getCommands.put(UrlPath.LOGOUT, new GetLogoutCommand());
+        getCommands.put(UrlPath.FACULTIES, new GetFacultiesCommand(serviceFactory.createFacultyService()));
     }
 
 

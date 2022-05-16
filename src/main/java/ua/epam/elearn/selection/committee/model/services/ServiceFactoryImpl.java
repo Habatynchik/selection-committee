@@ -13,4 +13,12 @@ public class ServiceFactoryImpl extends ServiceFactory {
         );
     }
 
+    @Override
+    public FacultyService createFacultyService() {
+        return new FacultyService(
+                DaoFactory.getInstance().createFacultyDao()
+        );
+    }
+
+
 }
