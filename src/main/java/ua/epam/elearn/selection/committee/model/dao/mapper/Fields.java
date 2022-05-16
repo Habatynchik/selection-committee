@@ -29,4 +29,15 @@ public class Fields {
     public static String IS_BLOCKED = "blocked";
 
     public static String ROLE_ID = "role_id";
+
+
+    // ----- Faculty --------
+
+    public static String FACULTY_ID = "id";
+
+    public static String NAME = "name";
+
+    public static String GENERAL_CAPACITY = "general_capacity";
+
+    public static String BUDGET_CAPACITY = "budget_capacity";
 }

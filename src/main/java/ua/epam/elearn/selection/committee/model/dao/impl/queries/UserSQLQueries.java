@@ -1,6 +1,8 @@
 package ua.epam.elearn.selection.committee.model.dao.impl.queries;
 
 public class UserSQLQueries {
+
+
     private UserSQLQueries() {
     }
 
@@ -9,6 +11,8 @@ public class UserSQLQueries {
             " values (?, ?, ?, ?, ?, ?, ?, ?, ? ,?)";
 
     public static final String SELECT_USER_BY_ID = "SELECT * FROM \"user\" WHERE id= ?";
+
+    public static final String SELECT_ROLE_BY_ROLE_ID = "SELECT name FROM roles WHERE id=?";
 
     public static final String SELECT_USER_BY_EMAIL = "SELECT * FROM \"user\" WHERE email= ?";
 
@@ -21,4 +25,6 @@ public class UserSQLQueries {
     public static final String BLOCK_USER_BY_ID = "UPDATE \"user\" SET blocked=true WHERE id = ?";
 
     public static final String UNBLOCK_USER_BY_ID = "UPDATE \"user\" SET blocked=false WHERE id = ?";
+
+    public static final String SET_USER_ROLE_BY_ID = "UPDATE \"user\" SET role_id = ? WHERE id = ?";
 }

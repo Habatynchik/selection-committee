@@ -10,7 +10,10 @@ public class UrlPath {
 
     public static final String LOGIN = "/login";
     public static final String REGISTRATION = "/registration";
+    public static final String HOME = "/";
+
     public static final String CATALOG = "/catalog";
+
     public static final String TOUR_DETAILS = "/tour/details";
 
     public static final String LOGOUT = "/logout";

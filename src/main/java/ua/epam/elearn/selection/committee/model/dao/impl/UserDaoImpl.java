@@ -29,8 +29,8 @@ public class UserDaoImpl implements UserDao {
 
             return stmt.executeUpdate() > 0;
 
-        } catch (SQLException throwables) {
-            throw new RuntimeException(throwables);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -59,12 +59,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByEmail(String email) {
-        return getUserByQuery(email, UserSQLQueries.SELECT_USER_BY_EMAIL);
+        return getUserByParam(email, UserSQLQueries.SELECT_USER_BY_EMAIL);
     }
 
     @Override
     public User getUserByLogin(String login) {
-        return getUserByQuery(login, UserSQLQueries.SELECT_USER_BY_LOGIN);
+        return getUserByParam(login, UserSQLQueries.SELECT_USER_BY_LOGIN);
     }
 
     @Override
@@ -114,6 +114,29 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public String getRoleByRoleId(long roleId) {
+        String role = null;
+        try (Connection con = DBManager.getInstance().getConnection();
+             PreparedStatement stmt = con.prepareStatement(UserSQLQueries.SELECT_ROLE_BY_ROLE_ID)) {
+
+            stmt.setLong(1, roleId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+
+
+                while (rs.next()) {
+                    role = rs.getString(1);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return role;
+    }
+
+    @Override
     public boolean blockUserById(long id) {
         try (Connection con = DBManager.getInstance().getConnection();
              PreparedStatement stmt = con.prepareStatement(UserSQLQueries.BLOCK_USER_BY_ID)) {
@@ -140,7 +163,7 @@ public class UserDaoImpl implements UserDao {
     }
 
 
-    private User getUserByQuery(String param, String query) {
+    private User getUserByParam(String param, String query) {
         User user = null;
 
         try (Connection con = DBManager.getInstance().getConnection();

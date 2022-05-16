@@ -1,22 +1,9 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@include file="../jsp/jspf/head.jspf" %>
 
-<fmt:setLocale value="${sessionScope.lang}"/>
-<fmt:setBundle basename="localization"/>
-
-
-<html>
-<head>
-    <title>Title</title>
-
-    <%@include file="../jsp/jspf/head.jspf" %>
-
-</head>
 <body>
 
 
-<%@include file="../jsp/jspf/languageButtons.jspf" %>
+<%@include file="jspf/header.jspf" %>
 
 <div id="registration">
     <div class="container">

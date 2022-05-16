@@ -1,6 +1,7 @@
 package ua.epam.elearn.selection.committee.model.entity;
 
 import ua.epam.elearn.selection.committee.model.dto.UserDto;
+import ua.epam.elearn.selection.committee.model.entity.enums.Role;
 
 import java.io.Serializable;
 
@@ -10,7 +11,7 @@ public class User implements Serializable {
     private long id;
     private String login;
     private String email;
-    private String password;
+    private transient String password;
     private String firstName;
     private String secondName;
     private String patronymic;
@@ -192,8 +193,8 @@ public class User implements Serializable {
             return this;
         }
 
-        public Builder addRolesId(long roleId){
-            newUser.setRoleId(roleId);
+        public Builder addRoles(long role){
+            newUser.setRoleId(role);
             return this;
         }
 
@@ -216,7 +217,7 @@ public class User implements Serializable {
                 ", region='" + region + '\'' +
                 ", institution='" + institution + '\'' +
                 ", blocked=" + blocked +
-                ", roleId=" + roleId +
+                ", role=" + roleId +
                 '}';
     }
 }

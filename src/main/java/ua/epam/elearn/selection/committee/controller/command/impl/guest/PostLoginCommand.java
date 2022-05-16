@@ -9,12 +9,14 @@ import ua.epam.elearn.selection.committee.model.exception.user.UserIsBlockedExce
 import ua.epam.elearn.selection.committee.model.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class PostLoginCommand  implements Command {
 
-    private static final String LOGIN = "login";
+    private static final String LOGIN = "username";
     private static final String PASSWORD = "password";
 
+    private static final String USER = "user";
     private static final String USER_ID = "userId";
     private static final String ROLE = "role";
 
@@ -22,6 +24,8 @@ public class PostLoginCommand  implements Command {
     private static final String ACCOUNT_IS_BLOCKED_EXCEPTION = "accountIsBlocked";
 
     private final UserService userService;
+
+
 
     public PostLoginCommand(UserService userService) {
         this.userService = userService;
@@ -32,15 +36,19 @@ public class PostLoginCommand  implements Command {
         String login = request.getParameter(LOGIN);
         String password = request.getParameter(PASSWORD);
 
-
+        HttpSession session = request.getSession();
 
         try {
             User user = userService.doAuthentication(login, password);
 
-            request.getSession().setAttribute(USER_ID, user.getId());
-            request.getSession().setAttribute(ROLE, user.getRoleId());
 
-            return UrlPath.REDIRECT + UrlPath.CATALOG;
+            request.getSession().setAttribute(USER_ID, user.getId());
+            request.getSession().setAttribute(ROLE, userService.getRoleByRoleId(user.getRoleId()));
+
+            session.setAttribute(USER, user);
+
+            return UrlPath.REDIRECT + UrlPath.HOME;
+
         } catch (AuthenticationException e) {
             request.setAttribute(AUTHENTICATION_EXCEPTION, true);
         } catch (UserIsBlockedException e) {

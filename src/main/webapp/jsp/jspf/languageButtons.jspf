@@ -32,14 +32,10 @@
 <style>
     @import url('https://fonts.googleapis.com/css?family=Muli');
 
-
-
     .sl-nav {
         font-family: Arial;
         font-family: 'Muli', sans-serif;
     }
-
-
 
     .sl-nav ul {
         margin: 0;

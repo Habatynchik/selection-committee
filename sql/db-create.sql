@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS required_subject CASCADE;
 DROP TABLE IF EXISTS subject_user_grades CASCADE;
 DROP TABLE IF EXISTS application_state CASCADE;
 DROP TABLE IF EXISTS recruitment CASCADE;
+DROP TABLE IF EXISTS recruitment_state CASCADE;
 
 CREATE TABLE roles
 (
@@ -17,7 +18,7 @@ CREATE TABLE roles
 );
 
 
-CREATE TABLE " user"
+CREATE TABLE "user"
 (
     id          SERIAL      NOT NULL,
     login       VARCHAR(50) NOT NULL,
@@ -52,15 +53,28 @@ CREATE TABLE application_state
     state bool   NOT NULL,
     PRIMARY KEY (id)
 );
-CREATE TABLE recruitment
+
+CREATE TABLE recruitment_state
 (
-    id         SERIAL NOT NULL,
-    start_date date,
-    end_date   date,
-    faculty_id INT    NOT NULL
-        REFERENCES faculty (id) ON DELETE CASCADE,
+    id   SERIAL      NOT NULL,
+    name VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE recruitment
+(
+    id                   SERIAL NOT NULL,
+    start_date           date,
+    end_date             date,
+    faculty_id           INT    NOT NULL
+        REFERENCES faculty (id) ON DELETE CASCADE,
+    recruitment_state_id INT    NOT NULL
+        REFERENCES recruitment_state (id) ON DELETE CASCADE,
+    PRIMARY KEY (id)
+);
+
+
+
 CREATE TABLE application
 (
     id                   SERIAL NOT NULL,
@@ -110,6 +124,7 @@ CREATE TABLE subject_user_grades
 
 
 INSERT INTO roles
-values (default, 'ADMIN');
-INSERT INTO roles
 values (default, 'CLIENT');
+INSERT INTO roles
+values (default, 'ADMIN');
+

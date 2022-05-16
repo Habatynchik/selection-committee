@@ -1,15 +1,9 @@
 package ua.epam.elearn.selection.committee.model.entity.enums;
 
 public enum Role {
-    ADMIN(1), CLIENT(2);
+    ADMIN(1), CLIENT(2), GUEST(3);
 
-    private final long id;
+    Role(int i) {
 
-    Role(int id) {
-        this.id = id;
-    }
-
-    public long getRole(){
-        return id;
     }
 }

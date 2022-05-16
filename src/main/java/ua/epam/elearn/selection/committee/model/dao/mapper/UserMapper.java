@@ -8,6 +8,7 @@ import java.sql.SQLException;
 public class UserMapper {
 
     public User extractFromResultSet(ResultSet rs) throws SQLException {
+
         return new User.Builder()
                 .addId(rs.getLong(Fields.USER_ID))
                 .addLogin(rs.getString(Fields.LOGIN))
@@ -20,7 +21,7 @@ public class UserMapper {
                 .addRegion(rs.getString(Fields.REGION))
                 .addInstitution(rs.getString(Fields.INSTITUTION))
                 .addBlocked(rs.getBoolean(Fields.IS_BLOCKED))
-                .addRolesId(rs.getLong(Fields.ROLE_ID))
+                .addRoles(rs.getLong(Fields.ROLE_ID))
                 .build();
     }
 }

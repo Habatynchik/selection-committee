@@ -1,7 +1,5 @@
 package ua.epam.elearn.selection.committee.controller;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import ua.epam.elearn.selection.committee.controller.command.Command;
 
 import javax.servlet.*;
@@ -15,13 +13,13 @@ import ua.epam.elearn.selection.committee.controller.command.impl.guest.GetLogin
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.GetRegistrationCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.PostLoginCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.PostRegistrationCommand;
+import ua.epam.elearn.selection.committee.controller.command.impl.user.GetLogoutCommand;
 import ua.epam.elearn.selection.committee.controller.path.UrlPath;
 import ua.epam.elearn.selection.committee.model.services.ServiceFactory;
 
-@WebServlet(name = "FrontControllerServlet", value = "/FrontControllerServlet")
+@WebServlet(name = "FrontControllerServlet", urlPatterns = "/")
 public class FrontControllerServlet extends HttpServlet {
 
-    Logger logger = LogManager.getLogger(FrontControllerServlet.class);
 
     private static final String COMMAND_NOT_FOUND = "Command not found";
     private final Map<String, Command> getCommands = new ConcurrentHashMap<>();
@@ -33,37 +31,20 @@ public class FrontControllerServlet extends HttpServlet {
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         putGetCommands(serviceFactory);
         putPostCommands(serviceFactory);
-        logger.info("Dispatcher servlet has been initialized");
-    }
-
-    private void putGetCommands(ServiceFactory serviceFactory) {
-
-        getCommands.put(UrlPath.REGISTRATION, new GetRegistrationCommand());
-        getCommands.put(UrlPath.LOGIN, new GetLoginCommand());
-        logger.warn("page: {} not found !!!!!!!!!!!");
-    }
-
-
-    private void putPostCommands(ServiceFactory serviceFactory) {
-
-        postCommands.put(UrlPath.REGISTRATION, new PostRegistrationCommand(serviceFactory.createUserService()));
-        postCommands.put(UrlPath.LOGIN, new PostLoginCommand(serviceFactory.createUserService()));
-        logger.warn("page: {} not found");
-    }
-
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp, getCommands);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp, postCommands);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        process(request, response, getCommands);
     }
 
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp, Map<String, Command> commands) throws IOException, ServletException {
-        final String URI = req.getRequestURI();
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        process(request, response, postCommands);
+    }
+
+    private void process(HttpServletRequest request, HttpServletResponse response, Map<String, Command> commands) throws IOException, ServletException {
+        final String URI = request.getRequestURI();
 
         String commandKey = commands.keySet().stream()
                 .filter(key -> key.equals(URI))
@@ -72,15 +53,14 @@ public class FrontControllerServlet extends HttpServlet {
 
 
         if (commandKey.equals(COMMAND_NOT_FOUND)) {
-            logger.warn("page: {} not found", URI);
-            resp.sendError(404);
+            response.sendError(404);
             return;
         }
 
         Command command = commands.get(commandKey);
-        String result = command.execute(req);
+        String result = command.execute(request);
 
-        renderPage(req, resp, result);
+        renderPage(request, response, result);
     }
 
     private void renderPage(HttpServletRequest req, HttpServletResponse resp, String pagePath) throws ServletException, IOException {
@@ -89,5 +69,20 @@ public class FrontControllerServlet extends HttpServlet {
         } else {
             req.getRequestDispatcher(pagePath).forward(req, resp);
         }
+    }
+
+    private void putGetCommands(ServiceFactory serviceFactory) {
+
+        getCommands.put(UrlPath.REGISTRATION, new GetRegistrationCommand());
+        getCommands.put(UrlPath.LOGIN, new GetLoginCommand());
+        getCommands.put(UrlPath.LOGOUT, new GetLogoutCommand());
+    }
+
+
+    private void putPostCommands(ServiceFactory serviceFactory) {
+
+        postCommands.put(UrlPath.REGISTRATION, new PostRegistrationCommand(serviceFactory.createUserService()));
+        postCommands.put(UrlPath.LOGIN, new PostLoginCommand(serviceFactory.createUserService()));
+
     }
 }

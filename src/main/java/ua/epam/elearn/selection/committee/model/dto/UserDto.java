@@ -14,10 +14,11 @@ public class UserDto {
     private String city;
     private String region;
     private String institution;
-    //private long roleId;
+    private long roleId;
 
     public UserDto() {
     }
+
 
     public UserDto(String login, String email, String password, String passwordCopy, String firstName, String secondName, String patronymic, String city, String region, String institution) {
         this.login = login;
@@ -110,6 +111,14 @@ public class UserDto {
 
     public void setInstitution(String institution) {
         this.institution = institution;
+    }
+
+    public long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
     }
 
     @Override

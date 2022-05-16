@@ -10,6 +10,7 @@ public interface UserDao {
 
     List<User> getAllUsers();
 
+    String getRoleByRoleId(long roleId);
     User getUserById(long id);
 
     User getUserByEmail(String email);
@@ -21,4 +22,6 @@ public interface UserDao {
     boolean blockUserById(long id);
 
     boolean unblockUserById(long id);
+
+
 }

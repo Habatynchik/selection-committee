@@ -1,56 +1,62 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page isELIgnored="false" %>
+<%@include file="/jsp/jspf/head.jspf" %>
 
-<fmt:setLocale value="${sessionScope.lang}" />
-<fmt:setBundle basename="localization" />
+<body class="text-center">
 
-<html>
-<head>
-    <title>Title</title>
-
-    <%@include file="../jsp/jspf/head.jspf" %>
+<%@include file="jspf/header.jspf" %>
 
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-</head>
-<body>
-<%@include file="../jsp/jspf/languageButtons.jspf" %>
-<div id="login">
-    <div class="container">
-        <div id="login-row" class="row justify-content-center align-items-center mt-4">
-            <div class="login-form mt-5 p-4 col-lg-6 col-10">
-                <form action="" method="post" autocomplete="off">
-                    <h3 class="text-center mt-4"><fmt:message key="loginPage.title" /></h3>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card border-0 shadow rounded-3 my-5">
+                <div class="card-body p-4 p-sm-5">
+                    <h5 class="card-title text-center mb-5 fw-light fs-5">
+                        <fmt:message key="loginPage.title"/>
+                    </h5>
 
-                    <div class="form-text text-center mt-4 mb-2">
-                        <span><fmt:message key="loginPage.dontHaveAccount"/> <a href="/registration"><fmt:message key="loginPage.signUp" /></a></span>
-                    </div>
+                    <form id="loginForm" action="${pageContext.request.contextPath}/login" method="post"
+                          autocomplete="on">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" name="username"
+                                   placeholder="Username">
+                            <label for="floatingInput"><fmt:message key="loginPage.login"/></label>
+                        </div>
 
-                    <c:if test="${requestScope.authenticationException}">
-                        <p class="text-center error-message mt-3"><fmt:message key="loginPage.exception.authenticationException" /></p>
-                    </c:if>
-                    <c:if test="${requestScope.accountIsBlocked}">
-                        <p class="text-center error-message mt-3"><fmt:message key="loginPage.exception.accountIsBlocked" /></p>
-                    </c:if>
-                    <div>
-                        <label for="login"><fmt:message key="loginPage.login" />:</label><br>
-                        <input type="text" name="login" id="login" class="form-control">
-                    </div>
-                    <div>
-                        <label for="password"><fmt:message key="loginPage.password" />:</label><br>
-                        <input type="password" name="password" id="password" class="form-control">
-                    </div>
-                    <div class="text-center mt-3">
-                        <button type="submit" class="btn btn-primary"><fmt:message key="loginPage.loginButton" /></button>
-                    </div>
+                        <c:if test="${requestScope.authenticationException}">
 
-                    <div class="text-center mt-4">
-                        <a class="btn btn-info" href="/catalog"><fmt:message key="loginPage.loginAsGuest" /></a>
-                    </div>
-                </form>
+                            <div class="alert alert-warning" role="alert">
+                                <fmt:message key="loginPage.exception.authenticationException"/>
+                            </div>
+
+
+
+                        </c:if>
+                        <c:if test="${requestScope.accountIsBlocked}">
+                            <p class="text-center error-message mt-3"><fmt:message
+                                    key="loginPage.exception.accountIsBlocked"/></p>
+                        </c:if>
+
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingPassword" name="password"
+                                   placeholder="Password">
+                            <label for="floatingPassword"><fmt:message key="loginPage.password"/></label>
+                        </div>
+
+
+                        <hr class="my-4">
+
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">
+                                <fmt:message key="loginPage.loginButton"/>
+                            </button>
+                        </div>
+
+                        <div class="form-text text-center mt-4 mb-2">
+                        <span><fmt:message key="loginPage.dontHaveAccount"/> <a href="/registration"><fmt:message
+                                key="loginPage.signUp"/></a></span>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

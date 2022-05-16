@@ -18,9 +18,6 @@ public class UserService {
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
 
-    private final Logger logger = LogManager.getLogger(UserService.class);
-
-
     public UserService(PasswordEncoder passwordEncoder, UserDao userDao) {
         this.passwordEncoder = passwordEncoder;
         this.userDao = userDao;
@@ -50,6 +47,10 @@ public class UserService {
         }
     }
 
+    public String getRoleByRoleId(long roleId) throws UserIsBlockedException, AuthenticationException {
+
+          return userDao.getRoleByRoleId(roleId);
+    }
 
     public void registerNewAccount(UserDto userDto) throws LoginIsReservedException, EmailIsReservedException {
 
@@ -60,8 +61,6 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userDao.createUser(user);
-
-        logger.info("New account {} has been created", user);
     }
 
 
