@@ -29,7 +29,6 @@ public class UserMapper {
                 req.getParameter(REGION),
                 req.getParameter(INSTITUTION)
         );
-
     }
 
     public void insertUserDtoIntoRequest(UserDto userDto, HttpServletRequest req) {
@@ -37,6 +36,8 @@ public class UserMapper {
         req.setAttribute(FIRST_NAME, userDto.getFirstName());
         req.setAttribute(SECOND_NAME, userDto.getSecondName());
         req.setAttribute(EMAIL, userDto.getEmail());
+        req.setAttribute(PATRONYMIC, userDto.getPatronymic());
+        req.setAttribute(CITY, userDto.getCity());
     }
 
 }

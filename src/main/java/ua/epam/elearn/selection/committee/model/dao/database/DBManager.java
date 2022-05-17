@@ -22,7 +22,7 @@ public class DBManager {
         config.setUsername(properties.getProperty("user"));
         config.setPassword(properties.getProperty("password"));
 
-        config.setMaximumPoolSize(10);
+       // config.setMaximumPoolSize(10);
 
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");

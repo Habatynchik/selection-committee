@@ -9,6 +9,8 @@ public interface FacultyDao {
 
     Faculty getFacultyById(long id);
 
+    Faculty getFacultyByName(String name);
+
     List<Faculty> getAllFaculties();
 
     boolean addFaculty(Faculty faculty);

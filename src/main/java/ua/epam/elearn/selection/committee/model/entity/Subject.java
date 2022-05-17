@@ -1,26 +1,25 @@
 package ua.epam.elearn.selection.committee.model.entity;
 
-public class Subject {
+import ua.epam.elearn.selection.committee.model.dto.SubjectDto;
+
+import java.io.Serializable;
+
+public class Subject implements Serializable {
+    private static final long serialVersionUID = 2041275512219239990L;
+
     private long id;
-    private String name;
-    private int grade;
+    private String nameEn;
+    private String nameRu;
+    private String nameUk;
+    private long grade;
 
     public Subject() {
     }
 
-    public Subject(String name) {
-        this.name = name;
-    }
-
-    public Subject(long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Subject(long id, String name, int grade) {
-        this.id = id;
-        this.name = name;
-        this.grade = grade;
+    public Subject(SubjectDto subjectDto) {
+        this.nameEn = subjectDto.getNameEn();
+        this.nameRu = subjectDto.getNameRu();
+        this.nameUk = subjectDto.getNameUk();
     }
 
     public long getId() {
@@ -31,28 +30,73 @@ public class Subject {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNameEn() {
+        return nameEn;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
     }
 
-    public int getGrade() {
+    public String getNameRu() {
+        return nameRu;
+    }
+
+    public void setNameRu(String nameRu) {
+        this.nameRu = nameRu;
+    }
+
+    public String getNameUk() {
+        return nameUk;
+    }
+
+    public void setNameUk(String nameUk) {
+        this.nameUk = nameUk;
+    }
+
+    public long getGrade() {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(long grade) {
         this.grade = grade;
     }
 
-    @Override
-    public String toString() {
-        return "Subject{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", grade=" + grade +
-                '}';
+    public static class Builder {
+        private final Subject newSubject;
+
+        public Builder() {
+            this.newSubject = new Subject();
+        }
+
+        public Builder addId(long id) {
+            newSubject.setId(id);
+            return this;
+        }
+
+        public Builder addNameEn(String name) {
+            newSubject.setNameEn(name);
+            return this;
+        }
+
+        public Builder addNameRu(String name) {
+            newSubject.setNameRu(name);
+            return this;
+        }
+
+        public Builder addNameUk(String name) {
+            newSubject.setNameUk(name);
+            return this;
+        }
+
+        public Builder addGrade(long grade) {
+            newSubject.setGrade(grade);
+            return this;
+        }
+
+        public Subject build() {
+            return newSubject;
+        }
+
     }
 }

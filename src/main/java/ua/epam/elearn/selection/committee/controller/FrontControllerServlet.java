@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import ua.epam.elearn.selection.committee.controller.command.impl.admin.*;
 import ua.epam.elearn.selection.committee.controller.command.impl.common.GetFacultiesCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.GetLoginCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.GetRegistrationCommand;
@@ -77,7 +78,11 @@ public class FrontControllerServlet extends HttpServlet {
         getCommands.put(UrlPath.REGISTRATION, new GetRegistrationCommand());
         getCommands.put(UrlPath.LOGIN, new GetLoginCommand());
         getCommands.put(UrlPath.LOGOUT, new GetLogoutCommand());
-        getCommands.put(UrlPath.FACULTIES, new GetFacultiesCommand(serviceFactory.createFacultyService()));
+        getCommands.put(UrlPath.ADD_FACULTY, new GetCreateFacultyCommand(serviceFactory.createSubjectService()));
+        getCommands.put(UrlPath.FACULTIES, new GetFacultiesCommand(serviceFactory.createFacultyService(), serviceFactory.createSubjectService()));
+        getCommands.put(UrlPath.SUBJECTS, new GetSubjectsCommand(serviceFactory.createSubjectService()));
+        getCommands.put(UrlPath.ADD_SUBJECT, new GetCreateSubjectCommand());
+
     }
 
 
@@ -85,6 +90,10 @@ public class FrontControllerServlet extends HttpServlet {
 
         postCommands.put(UrlPath.REGISTRATION, new PostRegistrationCommand(serviceFactory.createUserService()));
         postCommands.put(UrlPath.LOGIN, new PostLoginCommand(serviceFactory.createUserService()));
+        postCommands.put(UrlPath.ADD_FACULTY, new PostCreateFacultyCommand(serviceFactory.createFacultyService(), serviceFactory.createSubjectService()));
+        postCommands.put(UrlPath.ADD_SUBJECT, new PostCreateSubjectCommand(serviceFactory.createSubjectService()));
 
     }
+
+
 }

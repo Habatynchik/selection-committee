@@ -1,13 +1,28 @@
 package ua.epam.elearn.selection.committee.model.entity;
 
+import ua.epam.elearn.selection.committee.model.dto.FacultyDto;
+import ua.epam.elearn.selection.committee.model.dto.SubjectDto;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Faculty {
+public class Faculty implements Serializable {
+    private static final long serialVersionUID = 42L;
+
     private long id;
     private String name;
     private long generalCapacity;
     private long budgetCapacity;
     private List<Subject> requiredSubjects;
+
+    public Faculty() {
+    }
+
+    public Faculty(FacultyDto facultyDto) {
+       this.name = facultyDto.getName();
+       this.generalCapacity = facultyDto.getGeneralCapacity();
+       this.budgetCapacity = facultyDto.getBudgetCapacity();
+    }
 
     public long getId() {
         return id;

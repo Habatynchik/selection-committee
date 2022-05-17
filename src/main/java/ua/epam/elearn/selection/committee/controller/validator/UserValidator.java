@@ -1,6 +1,6 @@
 package ua.epam.elearn.selection.committee.controller.validator;
 
-import ua.epam.elearn.selection.committee.controller.exseption.user.*;
+import ua.epam.elearn.selection.committee.controller.exception.user.*;
 import ua.epam.elearn.selection.committee.controller.validator.exceptions.UserExceptions;
 import ua.epam.elearn.selection.committee.controller.validator.regexp.UserRegExp;
 import ua.epam.elearn.selection.committee.model.dto.UserDto;

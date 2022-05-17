@@ -17,7 +17,6 @@ public class PostLoginCommand  implements Command {
     private static final String PASSWORD = "password";
 
     private static final String USER = "user";
-    private static final String USER_ID = "userId";
     private static final String ROLE = "role";
 
     private static final String AUTHENTICATION_EXCEPTION = "authenticationException";
@@ -42,9 +41,7 @@ public class PostLoginCommand  implements Command {
             User user = userService.doAuthentication(login, password);
 
 
-            request.getSession().setAttribute(USER_ID, user.getId());
-            request.getSession().setAttribute(ROLE, userService.getRoleByRoleId(user.getRoleId()));
-
+            session.setAttribute(ROLE, userService.getRoleByRoleId(user.getRoleId()));
             session.setAttribute(USER, user);
 
             return UrlPath.REDIRECT + UrlPath.HOME;

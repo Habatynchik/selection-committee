@@ -54,22 +54,15 @@ CREATE TABLE application_state
     PRIMARY KEY (id)
 );
 
-CREATE TABLE recruitment_state
-(
-    id   SERIAL      NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    PRIMARY KEY (id)
-);
 
 CREATE TABLE recruitment
 (
-    id                   SERIAL NOT NULL,
-    start_date           date,
-    end_date             date,
-    faculty_id           INT    NOT NULL
+    id         SERIAL NOT NULL,
+    start_date date,
+    end_date   date,
+    closed     bool   NOT NULL DEFAULT FALSE,
+    faculty_id INT    NOT NULL
         REFERENCES faculty (id) ON DELETE CASCADE,
-    recruitment_state_id INT    NOT NULL
-        REFERENCES recruitment_state (id) ON DELETE CASCADE,
     PRIMARY KEY (id)
 );
 
@@ -97,7 +90,9 @@ CREATE TABLE application
 CREATE TABLE subject
 (
     id   SERIAL      NOT NULL,
-    name VARCHAR(50) NOT NULL,
+    name_en VARCHAR(50) NOT NULL,
+    name_ru VARCHAR(50) NOT NULL,
+    name_uk VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
 );
 

@@ -12,6 +12,8 @@ import java.util.List;
 
 public class UserDaoImpl implements UserDao {
 
+    private static final int USER = 1;
+    private static final int ADMIN = 2;
     @Override
     public boolean createUser(User user) {
         try (Connection con = DBManager.getInstance().getConnection();
@@ -25,7 +27,7 @@ public class UserDaoImpl implements UserDao {
             stmt.setString(7, user.getCity());
             stmt.setString(8, user.getRegion());
             stmt.setString(9, user.getInstitution());
-            stmt.setInt(10, 2);
+            stmt.setInt(10, USER);
 
             return stmt.executeUpdate() > 0;
 

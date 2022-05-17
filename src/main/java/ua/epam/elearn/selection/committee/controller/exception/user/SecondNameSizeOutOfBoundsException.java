@@ -1,4 +1,4 @@
-package ua.epam.elearn.selection.committee.controller.exseption.user;
+package ua.epam.elearn.selection.committee.controller.exception.user;
 
 public class SecondNameSizeOutOfBoundsException extends Exception{
 }

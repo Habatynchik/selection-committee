@@ -17,19 +17,16 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.js</url-pattern>
-    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.png</url-pattern>
+        <url-pattern>*.css</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>*.css</url-pattern>
+        <url-pattern>*.js</url-pattern>
     </servlet-mapping>
 
     <session-config>
@@ -59,9 +56,24 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>ua.epam.elearn.selection.committee.controller.filter.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/jsp/error/403.jsp</location>
+    </error-page>
 
     <error-page>
         <error-code>404</error-code>
         <location>/jsp/error/404.jsp</location>
     </error-page>
+
 </web-app>

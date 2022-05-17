@@ -38,6 +38,29 @@ public class FacultyDaoImpl implements FacultyDao {
     }
 
     @Override
+    public Faculty getFacultyByName(String name) {
+        Faculty faculty = null;
+
+        try (Connection con = DBManager.getInstance().getConnection();
+             PreparedStatement stmt = con.prepareStatement(FacultySQLQueries.SELECT_FACULTY_BY_NAME)) {
+            stmt.setString(1, name);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                FacultyMapper facultyMapper = new FacultyMapper();
+
+                while (rs.next()) {
+                    faculty = facultyMapper.extractFromResultSet(rs);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return faculty;
+    }
+
+    @Override
     public List<Faculty> getAllFaculties() {
 
         List<Faculty> faculties = new ArrayList<>();

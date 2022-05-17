@@ -40,4 +40,14 @@ public class Fields {
     public static String GENERAL_CAPACITY = "general_capacity";
 
     public static String BUDGET_CAPACITY = "budget_capacity";
+
+    // ----- Subject --------
+
+    public static String SUBJECT_ID = "id";
+
+    public static String NAME_EN = "name_en";
+
+    public static String NAME_RU = "name_ru";
+
+    public static String NAME_UK = "name_uk";
 }

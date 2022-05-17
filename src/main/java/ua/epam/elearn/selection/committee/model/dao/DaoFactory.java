@@ -6,10 +6,14 @@ public abstract class DaoFactory {
 
     private static volatile DaoFactory daoFactory;
 
-    protected DaoFactory() {}
+    protected DaoFactory() {
+    }
 
     public abstract UserDao createUserDao();
+
     public abstract FacultyDao createFacultyDao();
+
+    public abstract SubjectDao createSubjectDao();
 
     public static DaoFactory getInstance() {
         if (daoFactory == null) {
