@@ -57,11 +57,12 @@ CREATE TABLE application_state
 
 CREATE TABLE recruitment
 (
-    id         SERIAL NOT NULL,
+    id         SERIAL  NOT NULL,
+    name       VARCHAR NOT NULL,
     start_date date,
     end_date   date,
-    closed     bool   NOT NULL DEFAULT FALSE,
-    faculty_id INT    NOT NULL
+    closed     bool    NOT NULL DEFAULT FALSE,
+    faculty_id INT     NOT NULL
         REFERENCES faculty (id) ON DELETE CASCADE,
     PRIMARY KEY (id)
 );
@@ -73,11 +74,6 @@ CREATE TABLE application
     id                   SERIAL NOT NULL,
     user_id              INT    NOT NULL
         REFERENCES "user" (id) ON DELETE CASCADE,
-    faculty_id           INT    NOT NULL
-        REFERENCES faculty (id)
-            ON
-                DELETE
-                CASCADE,
     application_state_id INT    NOT NULL
         REFERENCES application_state (id) ON DELETE
             CASCADE,

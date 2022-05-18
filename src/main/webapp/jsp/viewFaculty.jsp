@@ -23,6 +23,9 @@
         </c:forEach>
     </p>
 
+    <a href="#"> Delete </a>
+    <a href="#"> Change </a>
+
 </div>
 
 </body>

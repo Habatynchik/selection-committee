@@ -6,7 +6,6 @@ public class Application {
 
     int id;
     int userId;
-    int facultyID;
     int recruitmentId;
     ApplicationState state;
 

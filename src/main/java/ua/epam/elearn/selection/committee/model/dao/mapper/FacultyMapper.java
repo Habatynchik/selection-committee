@@ -11,7 +11,7 @@ public class FacultyMapper {
     public Faculty extractFromResultSet(ResultSet rs) throws SQLException {
 
         return new Faculty.Builder()
-                .addId(rs.getLong(Fields.FACULTY_ID))
+                .addId(rs.getLong(Fields.ID))
                 .addName(rs.getString(Fields.NAME))
                 .addGeneralCapacity(rs.getLong(Fields.GENERAL_CAPACITY))
                 .addBudgetCapacity(rs.getLong(Fields.BUDGET_CAPACITY))

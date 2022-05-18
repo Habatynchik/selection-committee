@@ -81,7 +81,6 @@ public class FacultyValidator {
             throw new FewRequiredSubjectsException();
 
         for (String i : subjectIdArray) {
-            System.out.println(i);
             if ( FieldValidator.fieldIsNotValidLong(i)) {
                 throw new FewRequiredSubjectsException();
             }

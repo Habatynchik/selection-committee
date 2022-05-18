@@ -15,11 +15,8 @@ public abstract class ServiceFactory {
 
     public abstract FacultyService createFacultyService();
 
+    public abstract RecruitmentService createRecruitmentService();
 
-    /* public abstract TourService createTourService();
-     public abstract OrderService createOrderService();
-     public abstract CountryService createCountryService();
- */
     public static ServiceFactory getInstance() {
         if (serviceFactory == null) {
             synchronized (ServiceFactory.class) {

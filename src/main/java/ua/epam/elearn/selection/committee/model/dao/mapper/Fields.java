@@ -4,9 +4,14 @@ public class Fields {
     private Fields() {
     }
 
-    // ----- User --------
 
-    public static String USER_ID = "id";
+    // ----- Universal --------
+
+    public static String ID = "id";
+
+    public static String NAME = "name";
+
+    // ----- User --------
 
     public static String LOGIN = "login";
 
@@ -33,21 +38,28 @@ public class Fields {
 
     // ----- Faculty --------
 
-    public static String FACULTY_ID = "id";
-
-    public static String NAME = "name";
-
     public static String GENERAL_CAPACITY = "general_capacity";
 
     public static String BUDGET_CAPACITY = "budget_capacity";
 
     // ----- Subject --------
 
-    public static String SUBJECT_ID = "id";
-
     public static String NAME_EN = "name_en";
 
     public static String NAME_RU = "name_ru";
 
     public static String NAME_UK = "name_uk";
+
+
+    // ----- Recruitment --------
+
+    public static String RECRUITMENT_NAME = "name";
+
+    public static String START_DATE = "start_date";
+
+    public static String END_DATE = "end_date";
+
+    public static String CLOSED = "closed";
+
+    public static String FACULTY_ID = "faculty_id";
 }

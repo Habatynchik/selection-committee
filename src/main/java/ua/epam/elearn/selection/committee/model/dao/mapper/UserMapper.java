@@ -10,7 +10,7 @@ public class UserMapper {
     public User extractFromResultSet(ResultSet rs) throws SQLException {
 
         return new User.Builder()
-                .addId(rs.getLong(Fields.USER_ID))
+                .addId(rs.getLong(Fields.ID))
                 .addLogin(rs.getString(Fields.LOGIN))
                 .addEmail(rs.getString(Fields.EMAIL))
                 .addPassword(rs.getString(Fields.PASSWORD))

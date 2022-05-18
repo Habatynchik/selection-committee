@@ -27,5 +27,12 @@ public class ServiceFactoryImpl extends ServiceFactory {
         );
     }
 
+    @Override
+    public RecruitmentService createRecruitmentService() {
+        return new RecruitmentService(
+                DaoFactory.getInstance().createRecruitmentDao()
+        );
+    }
+
 
 }

@@ -1,9 +1,6 @@
 package ua.epam.elearn.selection.committee.model.dao.impl;
 
-import ua.epam.elearn.selection.committee.model.dao.DaoFactory;
-import ua.epam.elearn.selection.committee.model.dao.FacultyDao;
-import ua.epam.elearn.selection.committee.model.dao.SubjectDao;
-import ua.epam.elearn.selection.committee.model.dao.UserDao;
+import ua.epam.elearn.selection.committee.model.dao.*;
 
 public class DaoFactoryImpl extends DaoFactory {
 
@@ -23,6 +20,11 @@ public class DaoFactoryImpl extends DaoFactory {
     @Override
     public SubjectDao createSubjectDao() {
         return new SubjectDaoImp();
+    }
+
+    @Override
+    public RecruitmentDao createRecruitmentDao() {
+        return new RecruitmentDaoImpl();
     }
 
 }

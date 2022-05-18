@@ -15,6 +15,8 @@ public abstract class DaoFactory {
 
     public abstract SubjectDao createSubjectDao();
 
+    public abstract RecruitmentDao createRecruitmentDao();
+
     public static DaoFactory getInstance() {
         if (daoFactory == null) {
             synchronized (DaoFactory.class) {

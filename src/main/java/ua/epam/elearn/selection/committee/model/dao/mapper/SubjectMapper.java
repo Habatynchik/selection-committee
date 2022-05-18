@@ -11,7 +11,7 @@ public class SubjectMapper {
     public Subject extractFromResultSet(ResultSet rs) throws SQLException {
 
         return new Subject.Builder()
-                .addId(rs.getLong(Fields.SUBJECT_ID))
+                .addId(rs.getLong(Fields.ID))
                 .addNameEn(rs.getString(Fields.NAME_EN))
                 .addNameRu(rs.getString(Fields.NAME_RU))
                 .addNameUk(rs.getString(Fields.NAME_UK))
