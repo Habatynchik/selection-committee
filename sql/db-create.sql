@@ -49,8 +49,8 @@ CREATE TABLE faculty
 
 CREATE TABLE application_state
 (
-    id    SERIAL NOT NULL,
-    state bool   NOT NULL,
+    id    SERIAL  NOT NULL,
+    state VARCHAR NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -89,7 +89,7 @@ CREATE TABLE application
 
 CREATE TABLE subject
 (
-    id   SERIAL      NOT NULL,
+    id      SERIAL      NOT NULL,
     name_en VARCHAR(50) NOT NULL,
     name_ru VARCHAR(50) NOT NULL,
     name_uk VARCHAR(50) NOT NULL,

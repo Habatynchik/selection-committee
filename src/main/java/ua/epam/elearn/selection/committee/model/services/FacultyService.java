@@ -28,6 +28,10 @@ public class FacultyService {
         return facultyDao.getFacultyByName(name);
     }
 
+    public Faculty getFacultyById(Long id) {
+        return facultyDao.getFacultyById(id);
+    }
+
     public void addNewFaculty(FacultyDto facultyDto) throws FacultyNameIsReservedException {
 
         checkFacultyNameIsUnique(facultyDto.getName());

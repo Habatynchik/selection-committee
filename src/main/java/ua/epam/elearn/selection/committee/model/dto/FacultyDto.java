@@ -1,21 +1,40 @@
 package ua.epam.elearn.selection.committee.model.dto;
 
+import java.util.List;
 import java.util.Objects;
 
 public class FacultyDto {
 
     private String name;
-    private long generalCapacity;
-    private long budgetCapacity;
+    private String generalCapacity;
+    private String budgetCapacity;
+    private String[] requiredSubjectIdList;
 
     public FacultyDto() {
     }
 
-    public FacultyDto(String name, long generalCapacity, long budgetCapacity) {
+    public FacultyDto(String name, String generalCapacity, String budgetCapacity) {
         this.name = name;
         this.generalCapacity = generalCapacity;
         this.budgetCapacity = budgetCapacity;
     }
+
+    public FacultyDto(String name, String generalCapacity, String budgetCapacity, String[] requiredSubjectIdList) {
+        this.name = name;
+        this.generalCapacity = generalCapacity;
+        this.budgetCapacity = budgetCapacity;
+        this.requiredSubjectIdList = requiredSubjectIdList;
+    }
+
+    public String[] getRequiredSubjectIdList() {
+        return requiredSubjectIdList;
+    }
+
+    public void setRequiredSubjectIdList(String[] requiredSubjectIdList) {
+        this.requiredSubjectIdList = requiredSubjectIdList;
+    }
+
+
 
     public String getName() {
         return name;
@@ -25,19 +44,19 @@ public class FacultyDto {
         this.name = name;
     }
 
-    public long getGeneralCapacity() {
+    public String getGeneralCapacity() {
         return generalCapacity;
     }
 
-    public void setGeneralCapacity(long generalCapacity) {
+    public void setGeneralCapacity(String generalCapacity) {
         this.generalCapacity = generalCapacity;
     }
 
-    public long getBudgetCapacity() {
+    public String getBudgetCapacity() {
         return budgetCapacity;
     }
 
-    public void setBudgetCapacity(long budgetCapacity) {
+    public void setBudgetCapacity(String budgetCapacity) {
         this.budgetCapacity = budgetCapacity;
     }
 
@@ -46,7 +65,7 @@ public class FacultyDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FacultyDto that = (FacultyDto) o;
-        return generalCapacity == that.generalCapacity && budgetCapacity == that.budgetCapacity && Objects.equals(name, that.name);
+        return Objects.equals(name, that.name) && Objects.equals(generalCapacity, that.generalCapacity) && Objects.equals(budgetCapacity, that.budgetCapacity);
     }
 
     @Override

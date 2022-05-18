@@ -6,7 +6,7 @@ import ua.epam.elearn.selection.committee.model.entity.enums.Role;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private static final long serialVersionUID = 42L;
+    private static final long serialVersionUID = 47L;
 
     private long id;
     private String login;

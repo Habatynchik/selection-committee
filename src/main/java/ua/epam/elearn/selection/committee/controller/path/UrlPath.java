@@ -15,6 +15,7 @@ public class UrlPath {
 
     public static final String LOGOUT = "/logout";
     public static final String FACULTIES = "/faculties";
+    public static final String FACULTY = "/view_faculty";
 
     public static final String STATIC_RESOURCES = "/static";
 

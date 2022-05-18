@@ -40,12 +40,13 @@ public class AuthFilter implements Filter {
 
         Role role = Role.valueOf(session.getAttribute(ROLE_ATTRIBUTE).toString());
 
+        /*
         if (!getUriPath().contains(URI)) {
             response.sendError(404);
             return;
         }
-
-
+*/
+/*
         if (!checkResources(URI) && !checkAccess(URI, role)) {
             if (role.equals(Role.GUEST)) {
                 response.sendRedirect(LOGIN);
@@ -54,7 +55,7 @@ public class AuthFilter implements Filter {
             response.sendError(403);
             return;
         }
-
+*/
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
@@ -131,6 +132,7 @@ public class AuthFilter implements Filter {
     @Retention(RetentionPolicy.RUNTIME)
     @interface CustomAnnotation {
         public String name();
+
         public String value();
     }
 }

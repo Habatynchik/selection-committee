@@ -11,30 +11,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class GetFacultiesCommand implements Command {
+public class GetFacultyCommand implements Command {
 
-    private static final String FACULTY_LIST = "facultyList";
-    private static final String SUBJECT_LIST = "subjectList";
+    private static final String FACULTY = "faculty";
+    private static final String REQUIRED_SUBJECTS_LIST = "requiredSubjectList";
 
-    FacultyService facultyService;
-    SubjectService subjectService;
-
-    public GetFacultiesCommand(FacultyService facultyService, SubjectService subjectService) {
+    public GetFacultyCommand(FacultyService facultyService, SubjectService subjectService) {
         this.facultyService = facultyService;
         this.subjectService = subjectService;
     }
 
+    private final FacultyService facultyService;
+    private final SubjectService subjectService;
+
+
+
     @Override
     public String execute(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        List<Subject> subjectList = subjectService.getAllSubjects();
 
-        session.setAttribute(SUBJECT_LIST, subjectList);
+        Faculty faculty = facultyService.getFacultyById(Long.valueOf(request.getParameter("id")));
 
-        List<Faculty> facultyList = facultyService.findAllFaculties();
+        List<Subject> requiredSubjectList = subjectService.getRequiredSubjects(faculty.getId());
 
-        request.setAttribute(FACULTY_LIST, facultyList);
+        request.setAttribute(FACULTY, faculty);
+        request.setAttribute(REQUIRED_SUBJECTS_LIST, requiredSubjectList);
 
-        return JspFilePath.FACULTIES;
+        return JspFilePath.FACULTY;
     }
 }

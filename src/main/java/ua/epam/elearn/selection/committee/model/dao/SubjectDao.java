@@ -12,6 +12,10 @@ public interface SubjectDao {
 
     List<Subject> getAllSubjects();
 
+    List<Subject> getRequiredSubjectsByFacultyId(long facultyId);
+
     boolean addRequiredSubjects(long facultyId, List<Long> subjectList);
+
+
 
 }

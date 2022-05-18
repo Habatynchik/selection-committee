@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import ua.epam.elearn.selection.committee.controller.command.impl.admin.*;
 import ua.epam.elearn.selection.committee.controller.command.impl.common.GetFacultiesCommand;
+import ua.epam.elearn.selection.committee.controller.command.impl.common.GetFacultyCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.GetLoginCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.GetRegistrationCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.PostLoginCommand;
@@ -82,6 +83,7 @@ public class FrontControllerServlet extends HttpServlet {
         getCommands.put(UrlPath.FACULTIES, new GetFacultiesCommand(serviceFactory.createFacultyService(), serviceFactory.createSubjectService()));
         getCommands.put(UrlPath.SUBJECTS, new GetSubjectsCommand(serviceFactory.createSubjectService()));
         getCommands.put(UrlPath.ADD_SUBJECT, new GetCreateSubjectCommand());
+        getCommands.put(UrlPath.FACULTY, new GetFacultyCommand(serviceFactory.createFacultyService(), serviceFactory.createSubjectService()));
 
     }
 

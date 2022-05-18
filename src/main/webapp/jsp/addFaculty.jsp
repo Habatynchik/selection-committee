@@ -29,22 +29,12 @@
                                 <label for="floatingInput">Faculty name</label>
                             </div>
 
-                            <c:if test="${requestScope.facultyNameIsReserved}">
-                                <div class="alert alert-warning" role="alert">
-                                    <fmt:message key="loginPage.exception.facultyNameIsReserved"/>
-                                </div>
-                            </c:if>
-
                             <div class="form-floating mb-3">
                                 <input type="number" class="form-control" id="floatingPassword" placeholder="Password"
                                        name="generalCapacity">
                                 <label for="floatingPassword">General capacity</label>
                             </div>
-                            <c:if test="${requestScope.generalCapacityIncorrectException}">
-                                <div class="alert alert-warning" role="alert">
-                                    <fmt:message key="loginPage.exception.generalCapacityIncorrectException"/>
-                                </div>
-                            </c:if>
+
 
                             <div class="form-floating mb-3">
                                 <input type="number" class="form-control" id="floatingPassword12" placeholder="Password"
@@ -52,15 +42,11 @@
                                 <label for="floatingPassword12">Budget capacity</label>
                             </div>
 
-                            <c:if test="${requestScope.capacityIncorrectException}">
-                                <div class="alert alert-warning" role="alert">
-                                    <fmt:message key="loginPage.exception.capacityIncorrectException"/>
-                                </div>
-                            </c:if>
 
                             <div class="form-floating mb-3">
                                 <div class="row  row-cols-lg-3 g-2 g-lg-3 ">
                                     <c:forEach var="subject" items="${subjectList}">
+
 
                                         <input type="checkbox" class="btn-check" value="${subject.id}"
                                                id="${subject.id}"
@@ -71,6 +57,43 @@
                                     </c:forEach>
                                 </div>
                             </div>
+
+                            <c:if test="${requestScope.generalCapacityIncorrectException}">
+                                <div class="alert alert-warning" role="alert">
+                                    <fmt:message key="loginPage.exception.generalCapacityIncorrectException"/>
+                                </div>
+                            </c:if>
+
+                            <c:if test="${requestScope.budgetCapacityIncorrectException}">
+                                <div class="alert alert-warning" role="alert">
+                                    <fmt:message key="loginPage.exception.budgetCapacityIncorrectException"/>
+                                </div>
+                            </c:if>
+
+                            <c:if test="${requestScope.generalCapacityLessBudgetCapacityException}">
+                                <div class="alert alert-warning" role="alert">
+                                    <fmt:message key="loginPage.exception.generalCapacityLessBudgetCapacityException"/>
+                                </div>
+                            </c:if>
+
+                            <c:if test="${requestScope.emptyNameFieldException}">
+                                <div class="alert alert-warning" role="alert">
+                                    <fmt:message key="loginPage.exception.emptyNameFieldException"/>
+                                </div>
+                            </c:if>
+
+                            <c:if test="${requestScope.facultyNameIsReserved}">
+                                <div class="alert alert-warning" role="alert">
+                                    <fmt:message key="loginPage.exception.facultyNameIsReserved"/>
+                                </div>
+                            </c:if>
+
+                            <c:if test="${requestScope.fewRequiredSubjects}">
+                                <div class="alert alert-warning" role="alert">
+                                    <fmt:message key="loginPage.exception.fewRequiredSubjects"/>
+                                </div>
+                            </c:if>
+
                         </div>
 
                         <div class="modal-footer">

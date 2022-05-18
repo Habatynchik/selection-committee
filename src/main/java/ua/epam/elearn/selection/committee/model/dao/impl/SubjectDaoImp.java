@@ -15,6 +15,12 @@ public class SubjectDaoImp implements SubjectDao {
     private static final String SELECT_SUBJECT_BY_ID = "SELECT * FROM subject WHERE id=?";
     private static final String CREATE_SUBJECT = "INSERT INTO subject (name_en, name_ru, name_uk) values (?, ?, ?)";
     private static final String INSERT_REQUIRED_SUBJECTS = "INSERT INTO required_subject (faculty_id, subject_id) VALUES(?,?)";
+    private static final String SELECT_REQUIRED_SUBJECTS_BY_FACULTY_ID =
+            "SELECT subject.* " +
+                    "FROM subject " +
+                    "INNER JOIN required_subject " +
+                    "ON required_subject.subject_id = subject.id " +
+                    "WHERE required_subject.faculty_id = ?";
 
     @Override
     public boolean createSubject(Subject subject) {
@@ -65,6 +71,31 @@ public class SubjectDaoImp implements SubjectDao {
 
             try (ResultSet rs = stmt.executeQuery(SELECT_ALL_SUBJECTS)) {
                 SubjectMapper subjectMapper = new SubjectMapper();
+                while (rs.next()) {
+                    subjects.add(subjectMapper.extractFromResultSet(rs));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return subjects;
+    }
+
+
+    @Override
+    public List<Subject> getRequiredSubjectsByFacultyId(long facultyId) {
+        List<Subject> subjects = new ArrayList<>();
+
+        try (Connection con = DBManager.getInstance().getConnection();
+             PreparedStatement stmt = con.prepareStatement(SELECT_REQUIRED_SUBJECTS_BY_FACULTY_ID)) {
+
+            stmt.setLong(1, facultyId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                SubjectMapper subjectMapper = new SubjectMapper();
+
                 while (rs.next()) {
                     subjects.add(subjectMapper.extractFromResultSet(rs));
                 }

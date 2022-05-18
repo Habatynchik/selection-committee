@@ -3,7 +3,6 @@ package ua.epam.elearn.selection.committee.model.services;
 import ua.epam.elearn.selection.committee.model.dao.SubjectDao;
 import ua.epam.elearn.selection.committee.model.dto.SubjectDto;
 import ua.epam.elearn.selection.committee.model.entity.Subject;
-import ua.epam.elearn.selection.committee.model.exception.admin.FacultyNameIsReservedException;
 
 import java.util.List;
 
@@ -27,4 +26,7 @@ public class SubjectService {
         subjectDao.addRequiredSubjects(facultyId, longList);
     }
 
+    public List<Subject> getRequiredSubjects(long facultyId) {
+        return subjectDao.getRequiredSubjectsByFacultyId(facultyId);
+    }
 }

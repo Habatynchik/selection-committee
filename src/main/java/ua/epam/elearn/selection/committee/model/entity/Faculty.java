@@ -19,9 +19,9 @@ public class Faculty implements Serializable {
     }
 
     public Faculty(FacultyDto facultyDto) {
-       this.name = facultyDto.getName();
-       this.generalCapacity = facultyDto.getGeneralCapacity();
-       this.budgetCapacity = facultyDto.getBudgetCapacity();
+        this.name = facultyDto.getName();
+        this.generalCapacity = Long.parseLong(facultyDto.getGeneralCapacity());
+        this.budgetCapacity = Long.parseLong(facultyDto.getBudgetCapacity());
     }
 
     public long getId() {

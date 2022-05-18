@@ -9,12 +9,22 @@ public class FacultyMapper {
     private static final String FACULTY_NAME = "facultyName";
     private static final String GENERAL_CAPACITY = "generalCapacity";
     private static final String BUDGET_CAPACITY = "budgetCapacity";
+    private static final String SUBJECTS_ID = "subjectId";
 
     public FacultyDto fetchFacultyDtoFromRequest(HttpServletRequest req) {
         return new FacultyDto(
                 req.getParameter(FACULTY_NAME),
-                Long.parseLong(req.getParameter(GENERAL_CAPACITY)),
-                Long.parseLong(req.getParameter(BUDGET_CAPACITY))
+                req.getParameter(GENERAL_CAPACITY),
+                req.getParameter(BUDGET_CAPACITY)
+        );
+    }
+
+    public FacultyDto fetchFacultyDtoWithSubjectsFromRequest(HttpServletRequest req) {
+        return new FacultyDto(
+                req.getParameter(FACULTY_NAME),
+                req.getParameter(GENERAL_CAPACITY),
+                req.getParameter(BUDGET_CAPACITY),
+                req.getParameterValues(SUBJECTS_ID)
         );
     }
 

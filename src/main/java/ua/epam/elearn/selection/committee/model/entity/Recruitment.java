@@ -1,13 +1,15 @@
 package ua.epam.elearn.selection.committee.model.entity;
 
-import ua.epam.elearn.selection.committee.model.entity.enums.RecruitmentState;
-
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Recruitment {
-    private int enrollmentId;
-    private RecruitmentState state;
+public class Recruitment implements Serializable {
+    private static final long serialVersionUID = 44L;
+
+    private int id;
+    private int facultyId;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private boolean closed;
 
 }
