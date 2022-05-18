@@ -76,4 +76,9 @@
         <location>/jsp/error/404.jsp</location>
     </error-page>
 
+    <listener>
+        <listener-class>
+            ua.epam.elearn.selection.committee.controller.listener.ContextListener
+        </listener-class>
+    </listener>
 </web-app>

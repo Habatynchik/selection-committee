@@ -1,5 +1,7 @@
 package ua.epam.elearn.selection.committee.model.dao.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.epam.elearn.selection.committee.model.dao.database.DBManager;
 import ua.epam.elearn.selection.committee.model.dao.UserDao;
 import ua.epam.elearn.selection.committee.model.dao.impl.queries.UserSQLQueries;
@@ -11,9 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
-
     private static final int USER = 1;
     private static final int ADMIN = 2;
+
+    private final Logger logger = LogManager.getLogger(UserDaoImpl.class);
+
     @Override
     public boolean createUser(User user) {
         try (Connection con = DBManager.getInstance().getConnection();
@@ -32,7 +36,10 @@ public class UserDaoImpl implements UserDao {
             return stmt.executeUpdate() > 0;
 
         } catch (SQLException e) {
+            logger.error("{}, when trying to create User = {}", e.getMessage(), user);
             throw new RuntimeException(e);
+        } finally {
+
         }
     }
 
@@ -53,6 +60,7 @@ public class UserDaoImpl implements UserDao {
             }
 
         } catch (SQLException e) {
+            logger.error("{}, when trying to get User by Id = {}", e.getMessage(), id);
             throw new RuntimeException(e);
         }
 
@@ -87,6 +95,7 @@ public class UserDaoImpl implements UserDao {
             }
 
         } catch (SQLException e) {
+            logger.warn("User with (login = {} and password = {}) doesn't exist", login, password);
             throw new RuntimeException(e);
         }
 

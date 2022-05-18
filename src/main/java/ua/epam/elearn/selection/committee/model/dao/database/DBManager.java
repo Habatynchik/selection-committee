@@ -51,7 +51,6 @@ public class DBManager {
     }
 
     public Connection getConnection() throws SQLException {
-
         return dataSource.getConnection();
     }
 
@@ -59,8 +58,4 @@ public class DBManager {
         dataSource.close();
     }
 
-    public void testActive(){
-        System.out.println(dataSource.getHikariPoolMXBean().getActiveConnections());
-        //System.out.println(ds.getHikariPoolMXBean().getTotalConnections());
-    }
 }
