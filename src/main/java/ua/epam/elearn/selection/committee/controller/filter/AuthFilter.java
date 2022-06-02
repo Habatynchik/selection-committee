@@ -1,7 +1,6 @@
 package ua.epam.elearn.selection.committee.controller.filter;
 
-import ua.epam.elearn.selection.committee.controller.FrontControllerServlet;
-import ua.epam.elearn.selection.committee.controller.path.UrlPath;
+import ua.epam.elearn.selection.committee.controller.path.*;
 import ua.epam.elearn.selection.committee.model.entity.enums.Role;
 
 import javax.servlet.*;
@@ -15,8 +14,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static ua.epam.elearn.selection.committee.controller.path.UrlPath.*;
 
 public class AuthFilter implements Filter {
 
@@ -40,58 +37,55 @@ public class AuthFilter implements Filter {
 
         Role role = Role.valueOf(session.getAttribute(ROLE_ATTRIBUTE).toString());
 
-        /*
-        if (!getUriPath().contains(URI)) {
+
+
+        if (!getUriPath().contains(URI) && !URI.contains(UrlPath.STATIC_RESOURCES)) {
             response.sendError(404);
             return;
         }
-*/
-/*
-        if (!checkResources(URI) && !checkAccess(URI, role)) {
+
+
+        if (!checkAccess(URI, role) && !URI.contains(UrlPath.STATIC_RESOURCES)) {
             if (role.equals(Role.GUEST)) {
-                response.sendRedirect(LOGIN);
+                response.sendRedirect(UrlPath.LOGIN);
                 return;
             }
             response.sendError(403);
             return;
         }
-*/
+
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
     private boolean checkAccess(String uri, Role role) {
-        switch (role) {
-            case CLIENT:
-                return checkClientAccess(uri);
-            case ADMIN:
-                return checkAdminAccess(uri);
-            default:
-                return checkGuestAccess(uri);
+        Field[] allFields = UrlPath.class.getDeclaredFields();
+
+        SampleClass sampleObject = new SampleClass();
+        sampleObject.setSampleField("data");
+
+        for (Field field : allFields) {
+            try {
+                if (((String) field.get(sampleObject)).equals(uri)) {
+                    if (field.isAnnotationPresent(All.class))
+                        return true;
+                    if (role == Role.GUEST && field.isAnnotationPresent(Guest.class))
+                        return true;
+                    if (role == Role.CLIENT && field.isAnnotationPresent(User.class)){
+
+                        return true;
+                    }
+
+                    if (role == Role.ADMIN && field.isAnnotationPresent(Admin.class)){
+                        return true;
+                    }
+
+                }
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
         }
-    }
 
-    private boolean checkGuestAccess(String uri) {
-        return checkCommonAccess(uri) || uri.equals(LOGIN);
-    }
-
-    private boolean checkAdminAccess(String uri) {
-        return checkCommonAccess(uri) || uri.equals(LOGOUT) || uri.equals(SUBJECTS) || uri.equals(ADD_FACULTY);
-    }
-
-    private boolean checkClientAccess(String uri) {
-        return checkCommonAccess(uri) || uri.equals(LOGOUT);
-    }
-
-    private boolean checkCommonAccess(String uri) {
-        return uri.equals(REGISTRATION) || uri.equals(HOME) || uri.equals(FACULTIES);
-    }
-
-    private boolean checkResources(String uri) {
-        return uri.equals(STATIC_RESOURCES);
-    }
-
-    @Override
-    public void destroy() {
+        return false;
     }
 
 
@@ -134,5 +128,9 @@ public class AuthFilter implements Filter {
         public String name();
 
         public String value();
+    }
+
+    @Override
+    public void destroy() {
     }
 }

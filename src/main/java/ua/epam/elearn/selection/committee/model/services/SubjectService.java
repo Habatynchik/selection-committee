@@ -7,6 +7,7 @@ import ua.epam.elearn.selection.committee.model.entity.Subject;
 import java.util.List;
 
 public class SubjectService {
+
     private final SubjectDao subjectDao;
 
     public SubjectService(SubjectDao subjectDao) {
@@ -29,4 +30,11 @@ public class SubjectService {
     public List<Subject> getRequiredSubjects(long facultyId) {
         return subjectDao.getRequiredSubjectsByFacultyId(facultyId);
     }
+
+    public List<Subject> getRequiredSubjectsByRecruitmentId(long recruitmentId) {
+        return subjectDao.getRequiredSubjectsByRecruitmentId(recruitmentId);
+    }
+
+
+
 }

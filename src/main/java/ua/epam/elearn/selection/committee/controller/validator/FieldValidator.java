@@ -15,4 +15,13 @@ public class FieldValidator {
         }
         return false;
     }
+
+    public static boolean fieldIsNotValidInt(String field) {
+        try {
+            Long.parseLong(field);
+        } catch (NumberFormatException e) {
+            return true;
+        }
+        return false;
+    }
 }

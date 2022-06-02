@@ -1,10 +1,8 @@
 package ua.epam.elearn.selection.committee.model.services.util;
 
 import com.google.common.hash.Hashing;
-import com.google.common.io.BaseEncoding;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 
 public class SHA256PasswordEncoder implements PasswordEncoder{
     @Override

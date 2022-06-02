@@ -27,4 +27,9 @@ public class DaoFactoryImpl extends DaoFactory {
         return new RecruitmentDaoImpl();
     }
 
+    @Override
+    public ApplicationDao createApplicationDao() {
+        return new ApplicationDaoImpl();
+    }
+
 }

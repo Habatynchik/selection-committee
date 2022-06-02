@@ -14,6 +14,13 @@ public class RecruitmentDto {
     public RecruitmentDto() {
     }
 
+    public RecruitmentDto(String name, String facultyId, String startDate, String endDate) {
+        this.name = name;
+        this.facultyId = facultyId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public RecruitmentDto(String name, String facultyId, String startDate, String endDate, boolean closed) {
         this.name = name;
         this.facultyId = facultyId;

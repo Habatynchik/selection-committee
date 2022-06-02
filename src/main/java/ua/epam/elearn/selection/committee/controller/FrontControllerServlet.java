@@ -10,13 +10,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import ua.epam.elearn.selection.committee.controller.command.impl.admin.*;
-import ua.epam.elearn.selection.committee.controller.command.impl.common.GetFacultiesCommand;
-import ua.epam.elearn.selection.committee.controller.command.impl.common.GetFacultyCommand;
+import ua.epam.elearn.selection.committee.controller.command.impl.common.*;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.GetLoginCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.GetRegistrationCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.PostLoginCommand;
 import ua.epam.elearn.selection.committee.controller.command.impl.guest.PostRegistrationCommand;
-import ua.epam.elearn.selection.committee.controller.command.impl.common.GetLogoutCommand;
+import ua.epam.elearn.selection.committee.controller.command.impl.user.GetCreateApplicationCommand;
+import ua.epam.elearn.selection.committee.controller.command.impl.user.PostSubmitApplicationCommand;
 import ua.epam.elearn.selection.committee.controller.path.UrlPath;
 import ua.epam.elearn.selection.committee.model.services.ServiceFactory;
 
@@ -83,8 +83,14 @@ public class FrontControllerServlet extends HttpServlet {
         getCommands.put(UrlPath.FACULTIES, new GetFacultiesCommand(serviceFactory.createFacultyService(), serviceFactory.createSubjectService()));
         getCommands.put(UrlPath.SUBJECTS, new GetSubjectsCommand(serviceFactory.createSubjectService()));
         getCommands.put(UrlPath.ADD_SUBJECT, new GetCreateSubjectCommand());
-        getCommands.put(UrlPath.FACULTY, new GetFacultyCommand(serviceFactory.createFacultyService(), serviceFactory.createSubjectService()));
-
+        getCommands.put(UrlPath.FACULTY, new GetFacultyCommand(serviceFactory.createFacultyService(), serviceFactory.createSubjectService(), serviceFactory.createRecruitmentService()));
+        getCommands.put(UrlPath.ADD_RECRUITMENT, new GetCreateRecruitmentCommand());
+        getCommands.put(UrlPath.RECRUITMENTS, new GetRecruitmentsCommand(serviceFactory.createFacultyService(), serviceFactory.createRecruitmentService()));
+        getCommands.put(UrlPath.CREATE_APPLICATION, new GetCreateApplicationCommand(serviceFactory.createSubjectService()));
+        getCommands.put(UrlPath.RECRUITMENT, new GetRecruitmentCommand(serviceFactory.createRecruitmentService(), serviceFactory.createApplicationService()));
+        getCommands.put(UrlPath.APPLICATION, new GetApplicationCommand(serviceFactory.createApplicationService()));
+        getCommands.put(UrlPath.PROFILE, new GetProfileCommand(serviceFactory.createApplicationService()));
+        getCommands.put(UrlPath.USERS, new GetUsersCommand(serviceFactory.createUserService()));
     }
 
 
@@ -94,6 +100,10 @@ public class FrontControllerServlet extends HttpServlet {
         postCommands.put(UrlPath.LOGIN, new PostLoginCommand(serviceFactory.createUserService()));
         postCommands.put(UrlPath.ADD_FACULTY, new PostCreateFacultyCommand(serviceFactory.createFacultyService(), serviceFactory.createSubjectService()));
         postCommands.put(UrlPath.ADD_SUBJECT, new PostCreateSubjectCommand(serviceFactory.createSubjectService()));
+        postCommands.put(UrlPath.ADD_RECRUITMENT, new PostCreateRecruitmentCommand(serviceFactory.createRecruitmentService()));
+        postCommands.put(UrlPath.CREATE_APPLICATION, new PostSubmitApplicationCommand(serviceFactory.createApplicationService(), serviceFactory.createSubjectService()));
+        postCommands.put(UrlPath.USERS, new PostBlockUnblockUserCommand(serviceFactory.createUserService()));
+        postCommands.put(UrlPath.CLOSE_RECRUITMENT, new PostCloseRecruitmentCommand(serviceFactory.createRecruitmentService(), serviceFactory.createApplicationService()));
 
     }
 

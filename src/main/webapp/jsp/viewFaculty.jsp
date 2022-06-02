@@ -23,8 +23,25 @@
         </c:forEach>
     </p>
 
-    <a href="#"> Delete </a>
-    <a href="#"> Change </a>
+    <p>recruitments:</p>
+    <p>
+        <c:forEach var="recruitment" items="${recruitmentsList}">
+
+            <c:out value="${recruitment.name}"/>
+            <c:out value="${recruitment.startDate}"/>
+            <c:out value="${recruitment.endDate}"/>
+            <c:out value="${recruitment.closed}"/>
+
+        </c:forEach>
+    </p>
+    <a href="/view_faculty?id=${faculty.id}&command=delete"> Delete </a>
+    <br>
+    <a href="/view_faculty?id=${faculty.id}&command=change"> Change </a>
+    <br>
+    <a href="/add_recruitment?id=${faculty.id}"> Open recruitment </a>
+    <br>
+
+
 
 </div>
 

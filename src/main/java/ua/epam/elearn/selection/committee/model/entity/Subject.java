@@ -11,7 +11,7 @@ public class Subject implements Serializable {
     private String nameEn;
     private String nameRu;
     private String nameUk;
-    private long grade;
+    private Grade grade;
 
     public Subject() {
     }
@@ -54,11 +54,11 @@ public class Subject implements Serializable {
         this.nameUk = nameUk;
     }
 
-    public long getGrade() {
+    public Grade getGrade() {
         return grade;
     }
 
-    public void setGrade(long grade) {
+    public void setGrade(Grade grade) {
         this.grade = grade;
     }
 
@@ -89,7 +89,7 @@ public class Subject implements Serializable {
             return this;
         }
 
-        public Builder addGrade(long grade) {
+        public Builder addGrade(Grade grade) {
             newSubject.setGrade(grade);
             return this;
         }

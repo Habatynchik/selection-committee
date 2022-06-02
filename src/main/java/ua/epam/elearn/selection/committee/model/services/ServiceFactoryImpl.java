@@ -34,5 +34,13 @@ public class ServiceFactoryImpl extends ServiceFactory {
         );
     }
 
+    @Override
+    public ApplicationService createApplicationService() {
+        return new ApplicationService(
+                DaoFactory.getInstance().createApplicationDao(),
+                DaoFactory.getInstance().createFacultyDao()
+        );
+    }
+
 
 }

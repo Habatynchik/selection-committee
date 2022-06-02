@@ -7,9 +7,16 @@
         </a>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="${pageContext.request.contextPath}/" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/faculties" class="nav-link px-2 link-dark">Faculties</a></li>
-            <li><a href="${pageContext.request.contextPath}/subjects" class="nav-link px-2 link-dark">Subjects</a></li>
+            <li><a href="${pageContext.request.contextPath}/"
+                   class="nav-link px-2 link-secondary">Home</a></li>
+            <li><a href="${pageContext.request.contextPath}/faculties"
+                   class="nav-link px-2 link-dark">Faculties</a></li>
+            <li><a href="${pageContext.request.contextPath}/recruitments"
+                   class="nav-link px-2 link-dark">Recruitments</a></li>
+            <li><a href="${pageContext.request.contextPath}/subjects"
+                   class="nav-link px-2 link-dark">Subjects</a></li>
+            <li><a href="${pageContext.request.contextPath}/users"
+                   class="nav-link px-2 link-dark">Users</a></li>
 
             <li class="nav-link px-2 link-dark">
                 <div class="sl-nav">
@@ -21,9 +28,9 @@
                         </b> <i class="fa fa-angle-down" aria-hidden="true"></i>
                             <div class="triangle"></div>
                             <ul id="dropdown">
-                                <li id="btn-en" ><i class="sl-flag flag-usa">
+                                <li id="btn-en"><i class="sl-flag flag-usa">
                                     <div id="english"></div>
-                                </i> <span >
+                                </i> <span>
                         <fmt:message key="language.english"/>
                     </span></li>
                                 <li id="btn-ru"><i class="sl-flag flag-ru">
@@ -61,9 +68,10 @@
 
                 <form style="padding: 0; margin: 0" method="get" action="${pageContext.request.contextPath}/logout">
 
-                <span class="navbar-text px-2 link-dark">
-                        ${user.login}
-                </span>
+
+                    <a href="${pageContext.request.contextPath}/profile?userId=${user.id}"
+                       class="nav-text px-2 link-dark">${user.login}</a>
+
                     <button type="submit" class="btn btn-outline-primary me-2">Sign out</button>
                 </form>
 

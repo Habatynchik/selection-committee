@@ -16,10 +16,19 @@ import java.util.List;
 public class FacultyDaoImpl implements FacultyDao {
     @Override
     public Faculty getFacultyById(long id) {
+        return getFacultyByIdAndQuery(id, FacultySQLQueries.SELECT_FACULTY_BY_ID);
+    }
+
+    @Override
+    public Faculty getFacultyByRecruitmentId(long recruitmentId) {
+        return getFacultyByIdAndQuery(recruitmentId, FacultySQLQueries.SELECT_FACULTY_BY_RECRUITMENT_ID);
+    }
+
+    private Faculty getFacultyByIdAndQuery(long id, String query) {
         Faculty faculty = null;
 
         try (Connection con = DBManager.getInstance().getConnection();
-             PreparedStatement stmt = con.prepareStatement(FacultySQLQueries.SELECT_FACULTY_BY_ID)) {
+             PreparedStatement stmt = con.prepareStatement(query)) {
             stmt.setLong(1, id);
 
             try (ResultSet rs = stmt.executeQuery()) {
@@ -62,13 +71,31 @@ public class FacultyDaoImpl implements FacultyDao {
 
     @Override
     public List<Faculty> getAllFaculties() {
+        return getAllFacultiesByQuery(FacultySQLQueries.SELECT_ALL_FACULTIES);
+    }
+
+    @Override
+    public List<Faculty> getPaginationAllFaculties(String order, int limit, int offset) {
+        String query = FacultySQLQueries.SELECT_ALL_FACULTIES +
+                getOrderByQuery(order) +
+                getPaginationPageQuery(limit, offset);
+
+        return getAllFacultiesByQuery(query);
+    }
+
+    @Override
+    public List<Faculty> getAllFacultiesWhereOpenedRecruitments() {
+        return getAllFacultiesByQuery(FacultySQLQueries.SELECT_ALL_FACULTIES_WHERE_OPENED_RECRUITMENT);
+    }
+
+    private List<Faculty> getAllFacultiesByQuery(String query) {
 
         List<Faculty> faculties = new ArrayList<>();
 
         try (Connection con = DBManager.getInstance().getConnection();
              Statement stmt = con.createStatement()) {
 
-            try (ResultSet rs = stmt.executeQuery(FacultySQLQueries.SELECT_ALL_FACULTIES)) {
+            try (ResultSet rs = stmt.executeQuery(query)) {
                 FacultyMapper facultyMapper = new FacultyMapper();
                 while (rs.next()) {
                     faculties.add(facultyMapper.extractFromResultSet(rs));
@@ -102,5 +129,14 @@ public class FacultyDaoImpl implements FacultyDao {
     @Override
     public boolean deleteFaculty(int id) {
         return false;
+    }
+
+
+    private String getPaginationPageQuery(int limit, int offset) {
+        return "LIMIT " + limit + " OFFSET " + offset + "\n";
+    }
+
+    private String getOrderByQuery(String order) {
+        return "ORDER BY " + order +"\n" ;
     }
 }

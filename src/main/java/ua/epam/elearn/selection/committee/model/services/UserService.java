@@ -13,7 +13,14 @@ import ua.epam.elearn.selection.committee.model.services.util.PasswordEncoder;
 
 import java.util.List;
 
+/**
+ * Manages business logic related with User.
+ *
+ * @author Nikita Gamaiunov
+ */
 public class UserService {
+
+    Logger logger = LogManager.getLogger(UserService.class);
 
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
@@ -31,9 +38,22 @@ public class UserService {
         return userDao.getAllUsers();
     }
 
+    public String getRoleByRoleId(long roleId) throws UserIsBlockedException, AuthenticationException {
+        return userDao.getRoleByRoleId(roleId);
+    }
+
+    /**
+     * Process authentication.
+     *
+     * @param username String representing username.
+     * @param password String representing  not encoded password.
+     * @return User instance representing that authentication has been done successful.
+     * @throws UserIsBlockedException Indicates that User is blocked.
+     * @throws AuthenticationException Indicates that credentials are incorrect.
+     */
     public User doAuthentication(String username, String password) throws UserIsBlockedException, AuthenticationException {
 
-        password = passwordEncoder.encode(password);
+        password = passwordEncoder.encode(password.trim());
         User user = userDao.getByLoginAndPassword(username, password);
 
         if (user != null) {
@@ -47,31 +67,34 @@ public class UserService {
         }
     }
 
-    public String getRoleByRoleId(long roleId) throws UserIsBlockedException, AuthenticationException {
-
-          return userDao.getRoleByRoleId(roleId);
-    }
-
+    /**
+     * Process creating new user account.
+     *
+     * @param userDto UserDto instance.
+     * @throws LoginIsReservedException Indicates that username is reserved.
+     * @throws EmailIsReservedException Indicates that email is reserved.
+     */
     public void registerNewAccount(UserDto userDto) throws LoginIsReservedException, EmailIsReservedException {
 
         checkLoginIsUnique(userDto.getLogin());
         checkEmailIsUnique(userDto.getEmail());
 
         User user = new User(userDto);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword().trim()));
 
         userDao.createUser(user);
+        logger.info("New account {} has been created", user);
     }
 
 
     public void blockById(Long id) {
         userDao.blockUserById(id);
-
+        logger.info("User ({}) has been blocked", id);
     }
 
     public void unblockById(Long id) {
         userDao.unblockUserById(id);
-
+        logger.info("User ({}) has been unblocked", id);
     }
 
     private void checkLoginIsUnique(String login) throws LoginIsReservedException {

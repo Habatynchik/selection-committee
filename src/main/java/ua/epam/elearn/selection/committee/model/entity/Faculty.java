@@ -13,7 +13,6 @@ public class Faculty implements Serializable {
     private String name;
     private long generalCapacity;
     private long budgetCapacity;
-    private List<Subject> requiredSubjects;
 
     public Faculty() {
     }
@@ -56,14 +55,6 @@ public class Faculty implements Serializable {
         this.budgetCapacity = budgetCapacity;
     }
 
-    public List<Subject> getRequiredSubjects() {
-        return requiredSubjects;
-    }
-
-    public void setRequiredSubjects(List<Subject> requiredSubjects) {
-        this.requiredSubjects = requiredSubjects;
-    }
-
     public static class Builder {
 
         private final Faculty newFaculty;
@@ -93,10 +84,7 @@ public class Faculty implements Serializable {
             return this;
         }
 
-        public Builder addRequiredSubjects(List<Subject> requiredSubjects) {
-            newFaculty.setRequiredSubjects(requiredSubjects);
-            return this;
-        }
+
 
         public Faculty build() {
             return newFaculty;

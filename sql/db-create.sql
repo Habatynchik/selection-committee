@@ -59,9 +59,9 @@ CREATE TABLE recruitment
 (
     id         SERIAL  NOT NULL,
     name       VARCHAR NOT NULL,
-    start_date date,
-    end_date   date,
-    closed     bool    NOT NULL DEFAULT FALSE,
+    start_date date    NOT NULL,
+    end_date   date    NOT NULL,
+    closed     bool DEFAULT FALSE,
     faculty_id INT     NOT NULL
         REFERENCES faculty (id) ON DELETE CASCADE,
     PRIMARY KEY (id)
@@ -119,3 +119,28 @@ values (default, 'CLIENT');
 INSERT INTO roles
 values (default, 'ADMIN');
 
+
+INSERT INTO application_state
+values (default, 'REGISTERED');
+INSERT INTO application_state
+values (default, 'CANCELED');
+INSERT INTO application_state
+values (default, 'REJECTED');
+INSERT INTO application_state
+values (default, 'ACCEPTED_FOR_CONTRACT');
+INSERT INTO application_state
+values (default, 'ACCEPTED_FOR_BUDGET');
+
+
+INSERT INTO subject
+values (default, 'Grade Point Average', 'Средний балл аттестата', 'Середній бал атестату');
+INSERT INTO subject
+values (default, 'Mathematics', 'Математика', 'Математика');
+INSERT INTO subject
+values (default, 'Physics', 'Физика', 'Фізика');
+INSERT INTO subject
+values (default, 'History', 'История', 'Історія');
+INSERT INTO subject
+values (default, 'English', 'Английский', 'Англійська');
+INSERT INTO subject
+values (default, 'Biology', 'Биология', 'Біологія');

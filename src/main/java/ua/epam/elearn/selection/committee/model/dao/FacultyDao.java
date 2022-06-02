@@ -9,9 +9,14 @@ public interface FacultyDao {
 
     Faculty getFacultyById(long id);
 
+    Faculty getFacultyByRecruitmentId(long recruitmentId);
+
     Faculty getFacultyByName(String name);
 
     List<Faculty> getAllFaculties();
+    List<Faculty> getPaginationAllFaculties(String order, int limit, int offset);
+
+    List<Faculty> getAllFacultiesWhereOpenedRecruitments();
 
     boolean addFaculty(Faculty faculty);
 

@@ -1,15 +1,22 @@
 package ua.epam.elearn.selection.committee.controller.command.impl.mapper;
 
+import ua.epam.elearn.selection.committee.controller.validator.FieldValidator;
 import ua.epam.elearn.selection.committee.model.dto.FacultyDto;
 import ua.epam.elearn.selection.committee.model.dto.UserDto;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FacultyMapper {
     private static final String FACULTY_NAME = "facultyName";
     private static final String GENERAL_CAPACITY = "generalCapacity";
     private static final String BUDGET_CAPACITY = "budgetCapacity";
     private static final String SUBJECTS_ID = "subjectId";
+
+    private static final String MIN_PRICE = "minPrice";
+    private static final String MAX_PRICE = "maxPrice";
+    private static final String PERSON_NUMBER = "personNumber";
 
     public FacultyDto fetchFacultyDtoFromRequest(HttpServletRequest req) {
         return new FacultyDto(

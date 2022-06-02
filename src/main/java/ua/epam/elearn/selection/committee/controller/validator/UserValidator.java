@@ -1,8 +1,10 @@
 package ua.epam.elearn.selection.committee.controller.validator;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.epam.elearn.selection.committee.controller.exception.user.*;
 import ua.epam.elearn.selection.committee.controller.validator.exceptions.UserExceptions;
-import ua.epam.elearn.selection.committee.controller.validator.regexp.UserRegExp;
+import ua.epam.elearn.selection.committee.controller.validator.regexp.RegExp;
 import ua.epam.elearn.selection.committee.model.dto.UserDto;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,17 +14,32 @@ import java.util.regex.Pattern;
 
 import static ua.epam.elearn.selection.committee.controller.validator.UserFieldLimit.*;
 
+/**
+ * Validate UserDto
+ *
+ * @author Nikita Gamaiunov
+ */
 public class UserValidator {
+
+    private static final Logger logger = LogManager.getLogger(UserValidator.class);
+
     private UserValidator() {
     }
 
+    /**
+     * Validate all fields of UserDto and process exceptions
+     *
+     * @param userDto An instance of UserDto class that should be validated
+     * @param request An instance of HttpServletRequest
+     * @return A boolean representing is UserDto valid or not
+     */
     public static boolean validate(UserDto userDto, HttpServletRequest request) {
         try {
             checkLoginSize(userDto.getLogin());
             checkEmailSize(userDto.getEmail());
             checkForEmailMatchingTemplate(userDto.getEmail());
             checkPasswordSize(userDto.getPassword());
-            checkPasswordsIdentic(userDto.getPassword(), userDto.getPasswordCopy());
+            checkPasswordsIdentical(userDto.getPassword(), userDto.getPasswordCopy());
             checkForPasswordMatchTemplate(userDto.getPassword());
             checkFirstNameSize(userDto.getFirstName());
             checkSecondNameSize(userDto.getSecondName());
@@ -32,34 +49,46 @@ public class UserValidator {
             checkInstitutionSize(userDto.getInstitution());
             return true;
         } catch (PasswordsNotSameException e) {
+            logger.warn("Passwords not same");
             request.setAttribute(UserExceptions.PASSWORDS_NOT_SAME, true);
         } catch (LoginSizeOutOfBoundsException e) {
+            logger.warn("Login size out of bounds ({})", userDto.getLogin());
             request.setAttribute(UserExceptions.LOGIN_SIZE_OUT_OF_BOUNDS, true);
         } catch (PasswordSizeOutOfBoundsException e) {
+            logger.warn("Password size out of bounds ({})", userDto.getPassword());
             request.setAttribute(UserExceptions.PASSWORD_SIZE_OUT_OF_BOUNDS, true);
         } catch (FirstNameSizeOutOfBoundsException e) {
+            logger.warn("First name size out of bounds ({})", userDto.getFirstName());
             request.setAttribute(UserExceptions.FIRST_NAME_SIZE_OUT_OF_BOUNDS, true);
         } catch (SecondNameSizeOutOfBoundsException e) {
+            logger.warn("Second name size out of bounds ({})", userDto.getSecondName());
             request.setAttribute(UserExceptions.SECOND_NAME_SIZE_OUT_OF_BOUNDS, true);
         } catch (InstitutionSizeOutOfBoundsException e) {
+            logger.warn("Institution size out of bounds ({})", userDto.getInstitution());
             request.setAttribute(UserExceptions.INSTITUTION_SIZE_OUT_OF_BOUNDS, true);
         } catch (RegionSizeOutOfBoundsException e) {
+            logger.warn("Region size out of bounds ({})", userDto.getRegion());
             request.setAttribute(UserExceptions.REGION_SIZE_OUT_OF_BOUNDS, true);
         } catch (PatronymicSizeOutOfBoundsException e) {
+            logger.warn("Patronymic size out of bounds ({})", userDto.getPatronymic());
             request.setAttribute(UserExceptions.PATRONYMIC_SIZE_OUT_OF_BOUNDS, true);
         } catch (CitySizeOutOfBoundsException e) {
+            logger.warn("City size out of bounds ({})", userDto.getCity());
             request.setAttribute(UserExceptions.CITY_SIZE_OUT_OF_BOUNDS, true);
         } catch (PasswordNotMatchTemplateException e) {
+            logger.warn("Password not match template ({})", userDto.getPassword());
             request.setAttribute(UserExceptions.PASSWORD_NOT_MATCH_TEMPLATE, true);
         } catch (EmailNotMatchTemplateException e) {
+            logger.warn("Email not match template ({})", userDto.getEmail());
             request.setAttribute(UserExceptions.EMAIL_NOT_MATCH_TEMPLATE, true);
         } catch (EmailSizeOutOfBoundsException e) {
+            logger.warn("Email size out of bounds ({})", userDto.getEmail());
             request.setAttribute(UserExceptions.EMAIL_SIZE_OUT_OF_BOUNDS, true);
         }
         return false;
     }
 
-    private static void checkPasswordsIdentic(String password, String passwordCopy) throws PasswordsNotSameException {
+    private static void checkPasswordsIdentical(String password, String passwordCopy) throws PasswordsNotSameException {
         if (!password.equals(passwordCopy)) {
             throw new PasswordsNotSameException();
         }
@@ -139,7 +168,7 @@ public class UserValidator {
     }
 
     private static void checkForPasswordMatchTemplate(String password) throws PasswordNotMatchTemplateException {
-        Pattern pattern = Pattern.compile(UserRegExp.PASSWORD);
+        Pattern pattern = Pattern.compile(RegExp.PASSWORD);
         Matcher matcher = pattern.matcher(password);
 
         if (!matcher.matches()) {
@@ -148,7 +177,7 @@ public class UserValidator {
     }
 
     private static void checkForEmailMatchingTemplate(String email) throws EmailNotMatchTemplateException {
-        Pattern pattern = Pattern.compile(UserRegExp.EMAIL);
+        Pattern pattern = Pattern.compile(RegExp.EMAIL);
         Matcher matcher = pattern.matcher(email);
 
         if (!matcher.matches()) {

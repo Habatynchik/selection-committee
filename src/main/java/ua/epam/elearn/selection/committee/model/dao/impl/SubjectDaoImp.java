@@ -15,6 +15,14 @@ public class SubjectDaoImp implements SubjectDao {
     private static final String SELECT_SUBJECT_BY_ID = "SELECT * FROM subject WHERE id=?";
     private static final String CREATE_SUBJECT = "INSERT INTO subject (name_en, name_ru, name_uk) values (?, ?, ?)";
     private static final String INSERT_REQUIRED_SUBJECTS = "INSERT INTO required_subject (faculty_id, subject_id) VALUES(?,?)";
+    private static final String SELECT_REQUIRED_SUBJECTS_BY_RECRUITMENT_ID =
+            "SELECT subject.*\n" +
+            "FROM subject\n" +
+            "          JOIN required_subject ON required_subject.subject_id = subject.id\n" +
+            "          JOIN faculty ON required_subject.faculty_id = faculty.id\n" +
+            "          JOIN recruitment ON faculty.id = recruitment.faculty_id\n" +
+            "WHERE recruitment.id = ?";
+
     private static final String SELECT_REQUIRED_SUBJECTS_BY_FACULTY_ID =
             "SELECT subject.* " +
                     "FROM subject " +
@@ -86,10 +94,19 @@ public class SubjectDaoImp implements SubjectDao {
 
     @Override
     public List<Subject> getRequiredSubjectsByFacultyId(long facultyId) {
+        return getRequiredSubjectsById(facultyId, SELECT_REQUIRED_SUBJECTS_BY_FACULTY_ID);
+    }
+
+    @Override
+    public List<Subject> getRequiredSubjectsByRecruitmentId(long recruitmentId) {
+        return getRequiredSubjectsById(recruitmentId, SELECT_REQUIRED_SUBJECTS_BY_RECRUITMENT_ID);
+    }
+
+    private List<Subject> getRequiredSubjectsById(long facultyId, String query) {
         List<Subject> subjects = new ArrayList<>();
 
         try (Connection con = DBManager.getInstance().getConnection();
-             PreparedStatement stmt = con.prepareStatement(SELECT_REQUIRED_SUBJECTS_BY_FACULTY_ID)) {
+             PreparedStatement stmt = con.prepareStatement(query)) {
 
             stmt.setLong(1, facultyId);
 

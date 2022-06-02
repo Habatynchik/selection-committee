@@ -62,4 +62,28 @@ public class Fields {
     public static String CLOSED = "closed";
 
     public static String FACULTY_ID = "faculty_id";
+
+
+    // ----- Application --------
+
+    public static String USER_ID = "user_id";
+
+    public static String APPLICATION_STATE_ID = "application_state_id";
+
+    public static String RECRUITMENT_ID = "recruitment_id";
+
+    public static String GRADES = "grades";
+
+
+    // ----- Application state --------
+
+    public static String STATE = "state";
+
+    // ----- Grade --------
+
+    public static String GRADE = "grade";
+
+    public static String SUBJECT_ID = "subject_id";
+
+    public static String APPLICATION_ID = "application_id";
 }

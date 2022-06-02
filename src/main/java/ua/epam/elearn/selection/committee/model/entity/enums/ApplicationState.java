@@ -8,13 +8,24 @@ public enum ApplicationState {
     ACCEPTED_FOR_CONTRACT(4),
     ACCEPTED_FOR_BUDGET(5);
 
-    private final int id;
+    private final long id;
 
-    ApplicationState(int id) {
+    ApplicationState(long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
+
+
+    public static ApplicationState getValue(long id) {
+        ApplicationState ret = null;
+        for (ApplicationState type : ApplicationState.values()) {
+            if (type.getId() == id)
+                ret = type;
+        }
+        return ret;
+    }
+
 }

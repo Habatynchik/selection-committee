@@ -17,6 +17,8 @@ public abstract class ServiceFactory {
 
     public abstract RecruitmentService createRecruitmentService();
 
+    public abstract ApplicationService createApplicationService();
+
     public static ServiceFactory getInstance() {
         if (serviceFactory == null) {
             synchronized (ServiceFactory.class) {

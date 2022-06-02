@@ -15,8 +15,9 @@ public class GetLogoutCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
 
-        request.getSession().setAttribute(USER, null);
-        request.getSession().setAttribute(ROLE, null);
+        request.getSession().invalidate();
+      //  request.getSession().setAttribute(USER, null);
+       // request.getSession().setAttribute(ROLE, null);
 
         return UrlPath.REDIRECT + UrlPath.HOME;
     }
