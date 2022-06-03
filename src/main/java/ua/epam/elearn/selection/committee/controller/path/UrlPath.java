@@ -37,6 +37,7 @@ public class UrlPath {
     @Guest
     public static final String REGISTRATION = "/registration";
 
+
     @Admin
     @User
     public static final String LOGOUT = "/logout";
@@ -51,6 +52,12 @@ public class UrlPath {
     public static final String FACULTIES = "/faculties";
     @All
     public static final String FACULTY = "/view_faculty";
+
+    @Admin
+    public static final String DELETE_FACULTY = FACULTY + "/delete";
+    @Admin
+    public static final String CHANGE_FACULTY = "/change-faculty";
+
     @All
     public static final String RECRUITMENTS = "/recruitments";
     @All

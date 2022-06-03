@@ -27,6 +27,11 @@ public class SubjectService {
         subjectDao.addRequiredSubjects(facultyId, longList);
     }
 
+    public void updateRequiredSubjects(long facultyId, List<Long> longList){
+        subjectDao.deleteRequiredSubjects(facultyId);
+        subjectDao.addRequiredSubjects(facultyId, longList);
+    }
+
     public List<Subject> getRequiredSubjects(long facultyId) {
         return subjectDao.getRequiredSubjectsByFacultyId(facultyId);
     }

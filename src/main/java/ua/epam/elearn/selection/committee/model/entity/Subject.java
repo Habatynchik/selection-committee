@@ -3,6 +3,7 @@ package ua.epam.elearn.selection.committee.model.entity;
 import ua.epam.elearn.selection.committee.model.dto.SubjectDto;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Subject implements Serializable {
     private static final long serialVersionUID = 2041275512219239990L;
@@ -98,5 +99,29 @@ public class Subject implements Serializable {
             return newSubject;
         }
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subject subject = (Subject) o;
+        return id == subject.id && Objects.equals(nameEn, subject.nameEn) && Objects.equals(nameRu, subject.nameRu) && Objects.equals(nameUk, subject.nameUk) && Objects.equals(grade, subject.grade);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nameEn, nameRu, nameUk, grade);
+    }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "id=" + id +
+                ", nameEn='" + nameEn + '\'' +
+                ", nameRu='" + nameRu + '\'' +
+                ", nameUk='" + nameUk + '\'' +
+                ", grade=" + grade +
+                '}';
     }
 }

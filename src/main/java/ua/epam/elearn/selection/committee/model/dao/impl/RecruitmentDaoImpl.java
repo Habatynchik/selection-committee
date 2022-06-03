@@ -36,6 +36,7 @@ public class RecruitmentDaoImpl implements RecruitmentDao {
                     "JOIN recruitment ON recruitment.id = application.recruitment_id\n" +
                     "WHERE recruitment.id = ? AND \"user\".id = ?";
     public static final String CLOSE_RECRUITMENT_BY_ID = "UPDATE recruitment SET closed=true WHERE id = ?";
+    public static final String UPDATE_RECRUITMENT_DATE_BY_ID = "UPDATE recruitment SET end_date=? WHERE id = ?";
 
     @Override
     public Recruitment getRecruitmentById(long id) {
@@ -181,6 +182,20 @@ public class RecruitmentDaoImpl implements RecruitmentDao {
     }
 
     @Override
+    public boolean updateRecruitmentDate(long recruitmentId, LocalDate date) {
+        try (Connection con = DBManager.getInstance().getConnection();
+             PreparedStatement stmt = con.prepareStatement(UPDATE_RECRUITMENT_DATE_BY_ID)) {
+
+            stmt.setDate(1, Date.valueOf(date));
+            stmt.setLong(2, recruitmentId);
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public Application getRecruitmentApplicationStatusByUserId(long recruitmentId, long userId) {
 
         Application application = null;
@@ -210,10 +225,12 @@ public class RecruitmentDaoImpl implements RecruitmentDao {
     private static final String SELECT_ALL_RECRUITMENT_AND_FACULTIES =
             "SELECT * FROM recruitment\n" +
                     "JOIN faculty ON recruitment.faculty_id = faculty.id";
-@Override
-    public int getCountOfFacultiesByFilter(String[] filters){
+
+    @Override
+    public int getCountOfFacultiesByFilter(String[] filters) {
         return getAllRecruitmentsByQuery(SELECT_ALL_RECRUITMENT_AND_FACULTIES + getFilterQuery(filters)).size();
     }
+
     @Override
     public Map<Recruitment, Faculty> getPaginationAllRecruitmentsWithFaculties(String[] filters, String order, int limit, int offset) {
         String query = SELECT_ALL_RECRUITMENT_AND_FACULTIES +
@@ -248,18 +265,18 @@ public class RecruitmentDaoImpl implements RecruitmentDao {
     }
 
     private String getOrderByQuery(String order) {
-        System.out.println(" ORDER BY " + order + "\n");
         return " ORDER BY " + order + "\n";
     }
 
     private String getFilterQuery(String[] filters) {
+
+
         if (filters != null)
             return " WHERE " + String.join(" OR ", parseFilter(filters)) + "\n";
         return " ";
     }
 
     private String[] parseFilter(String[] arr) {
-
 
 
         String[] array = new String[arr.length];
@@ -270,10 +287,11 @@ public class RecruitmentDaoImpl implements RecruitmentDao {
             if (arr[i].equals("future")) {
                 array[i] = "start_date > '" + now + "'";
             } else if (arr[i].equals("current")) {
-                array[i] = "start_date < '" + now + "' AND '" + now + "' <  end_date";
+                array[i] = "start_date <= '" + now + "' AND '" + now + "' <=  end_date";
             } else if (arr[i].equals("previous")) {
                 array[i] = "end_date < '" + now + "'";
-            }
+            } else
+                array[i] = "1=1";
 
         }
 

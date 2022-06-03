@@ -35,7 +35,7 @@ public class GetFacultyCommand implements Command {
         Faculty faculty = facultyService.getFacultyById(Long.valueOf(request.getParameter("id")));
 
         List<Subject> requiredSubjectList = subjectService.getRequiredSubjects(faculty.getId());
-        List<Recruitment> recruitmentsList = recruitmentService.getAllRecruitmentsByFacultyId(faculty.getId());
+        List<Recruitment> recruitmentsList = recruitmentService.getAllNowOpenedRecruitmentsByFacultyId(faculty.getId());
 
         request.setAttribute(FACULTY, faculty);
         request.setAttribute(REQUIRED_SUBJECTS_LIST, requiredSubjectList);

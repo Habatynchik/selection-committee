@@ -19,6 +19,7 @@ public class GetFacultiesCommand implements Command {
     private static final String FACULTY_LIST = "facultyList";
     private static final String SUBJECT_LIST = "subjectList";
     private static final String PAGES_NUMBER = "pagesNumber";
+    private static final String CURRENT_PAGE_NUMBER = "currentPageNumber";
     private static final String PAGE = "page";
     private static final String SORT = "sort";
     private static final String ID = "id";
@@ -46,6 +47,7 @@ public class GetFacultiesCommand implements Command {
 
         request.setAttribute(FACULTY_LIST, facultyList);
         request.setAttribute(PAGES_NUMBER, pagesNumber);
+        request.setAttribute(CURRENT_PAGE_NUMBER, activePageNumber);
 
         return JspFilePath.FACULTIES;
     }
@@ -64,6 +66,7 @@ public class GetFacultiesCommand implements Command {
         String sortFilter = request.getParameter(SORT);
 
         if (FilterValidator.validateSortFilterForFaculties(sortFilter)) {
+
             return sortFilter;
         } else {
             return ID;

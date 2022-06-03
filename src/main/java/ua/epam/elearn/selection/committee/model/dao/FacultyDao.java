@@ -1,7 +1,6 @@
 package ua.epam.elearn.selection.committee.model.dao;
 
 import ua.epam.elearn.selection.committee.model.entity.Faculty;
-import ua.epam.elearn.selection.committee.model.entity.User;
 
 import java.util.List;
 
@@ -20,5 +19,8 @@ public interface FacultyDao {
 
     boolean addFaculty(Faculty faculty);
 
-    boolean deleteFaculty(int id);
+    boolean isExistedByFacultyId(Long facultyId);
+
+    boolean delete(Long id);
+    boolean update(Faculty faculty);
 }

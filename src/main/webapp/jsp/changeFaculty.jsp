@@ -15,30 +15,33 @@
             <div class="card border-0 shadow">
 
                 <div class="card-header">
-                    <h5> New subject</h5>
+                    <h5> Update Faculty</h5>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Special title treatment</h5>
-                    <form action="/add_faculty" method="post">
+                    <form action="/change-faculty" method="post">
                         <div class="modal-body">
+
+                            <input type="hidden" class="form-control" id="facultyId"
+                                   name="facultyId" value="${requestScope.facultyId}">
 
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="floatingInput"
                                        placeholder="name@example.com"
-                                       name="facultyName">
+                                       name="facultyName" value="${requestScope.facultyName}">
                                 <label for="floatingInput">Faculty name</label>
                             </div>
 
                             <div class="form-floating mb-3">
                                 <input type="number" class="form-control" id="floatingPassword" placeholder="Password"
-                                       name="generalCapacity">
+                                       name="generalCapacity" value="${requestScope.generalCapacity}">
                                 <label for="floatingPassword">General capacity</label>
                             </div>
 
 
                             <div class="form-floating mb-3">
                                 <input type="number" class="form-control" id="floatingPassword12" placeholder="Password"
-                                       name="budgetCapacity">
+                                       name="budgetCapacity" value="${requestScope.budgetCapacity}">
                                 <label for="floatingPassword12">Budget capacity</label>
                             </div>
 
@@ -50,7 +53,11 @@
 
                                         <input type="checkbox" class="btn-check" value="${subject.id}"
                                                id="${subject.id}"
-                                               autocomplete="off" name="subjectId">
+                                        <c:if test="${tagLib:contains( currentSubjectList, subject)}">
+                                               checked
+                                        </c:if>
+                                               name="subjectId">
+
                                         <label class="btn  p-3 border btn-outline-secondary"
                                                for="${subject.id}">
                                             <tagLib:subjectName subject="${subject}"> </tagLib:subjectName>

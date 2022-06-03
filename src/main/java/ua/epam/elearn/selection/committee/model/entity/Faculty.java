@@ -90,4 +90,14 @@ public class Faculty implements Serializable {
             return newFaculty;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Faculty{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", generalCapacity=" + generalCapacity +
+                ", budgetCapacity=" + budgetCapacity +
+                '}';
+    }
 }

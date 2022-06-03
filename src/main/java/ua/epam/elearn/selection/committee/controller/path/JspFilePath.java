@@ -19,6 +19,7 @@ public class JspFilePath {
     public static final String ADD_RECRUITMENT = "jsp/addRecruitment.jsp";
     public static final String CREATE_APPLICATION = "jsp/createApplication.jsp";
     public static final String PROFILE = "jsp/profile.jsp";
+    public static final String CHANGE_FACULTY = "jsp/changeFaculty.jsp";
 
     public static final String HOME = "jsp/index.jsp";
 

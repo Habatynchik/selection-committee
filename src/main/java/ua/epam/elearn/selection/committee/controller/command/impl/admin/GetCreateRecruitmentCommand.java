@@ -7,15 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 
 public class GetCreateRecruitmentCommand implements Command {
 
-    private static final String ID = "id";
     private static final String FACULTY_ID = "facultyId";
 
     @Override
     public String execute(HttpServletRequest request) {
 
-
-
-        request.setAttribute(FACULTY_ID, request.getParameter(ID));
+        request.setAttribute(FACULTY_ID, request.getParameter(FACULTY_ID));
 
         return JspFilePath.ADD_RECRUITMENT;
 

@@ -22,7 +22,6 @@ public class Application implements Serializable {
     public Application(ApplicationDto applicationDto) {
         this.user = new User.Builder().addId(Long.parseLong(applicationDto.getUserId())).build();
         this.recruitment = new Recruitment.Builder().addId(Long.parseLong(applicationDto.getRecruitmentId())).build();
-        System.out.println(applicationDto.getState());
         this.state = ApplicationState.valueOf(applicationDto.getState());
     }
 

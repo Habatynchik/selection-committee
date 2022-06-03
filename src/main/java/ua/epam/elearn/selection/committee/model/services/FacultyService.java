@@ -1,5 +1,7 @@
 package ua.epam.elearn.selection.committee.model.services;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.epam.elearn.selection.committee.model.dao.FacultyDao;
 import ua.epam.elearn.selection.committee.model.dto.FacultyDto;
 import ua.epam.elearn.selection.committee.model.entity.Faculty;
@@ -8,6 +10,9 @@ import ua.epam.elearn.selection.committee.model.exception.admin.FacultyNameIsRes
 import java.util.List;
 
 public class FacultyService {
+
+    private final Logger logger = LogManager.getLogger(FacultyService.class);
+
     private static final int PAGE_SIZE = 4;
 
     private final FacultyDao facultyDao;
@@ -23,13 +28,10 @@ public class FacultyService {
     public int getCountOfFaculties() {
         return (int) Math.ceil(facultyDao.getAllFaculties().size() / (double) PAGE_SIZE);
     }
+
     public List<Faculty> getPaginationAllFaculties(String order, int pageNum) {
         int offset = PAGE_SIZE * (pageNum - 1) ;
         return facultyDao.getPaginationAllFaculties(order, PAGE_SIZE, offset);
-    }
-
-    public List<Faculty> findAllFacultiesWhereOpenedRecruitments() {
-        return facultyDao.getAllFacultiesWhereOpenedRecruitments();
     }
 
     public Faculty findFacultyByName(String name) {
@@ -41,16 +43,43 @@ public class FacultyService {
     }
 
     public void addNewFaculty(FacultyDto facultyDto) throws FacultyNameIsReservedException {
-
         checkFacultyNameIsUnique(facultyDto.getName());
         Faculty faculty = new Faculty(facultyDto);
         facultyDao.addFaculty(faculty);
-
     }
 
+    public boolean isExistedByFacultyId(Long facultyId) {
+        return facultyDao.isExistedByFacultyId(facultyId);
+    }
 
     private void checkFacultyNameIsUnique(String facultyName) throws FacultyNameIsReservedException {
         if (facultyDao.getFacultyByName(facultyName) != null) throw new FacultyNameIsReservedException();
     }
 
+    public void deleteFaculty(Long id) {
+
+        facultyDao.delete(id);
+        logger.info("Faculty (id = {}) has been deleted", id);
+    }
+
+    public void updateFaculty(FacultyDto facultyDto) throws FacultyNameIsReservedException {
+
+        if (facultyDao.getFacultyByName(facultyDto.getName())!= null && facultyDao.getFacultyByName(facultyDto.getName()).getId()!=Long.parseLong(facultyDto.getId())){
+
+            throw new FacultyNameIsReservedException();
+        }
+
+        Faculty faculty = new Faculty(facultyDto);
+        faculty.setId(Long.parseLong(facultyDto.getId()));
+        
+        facultyDao.update(faculty);
+        logger.info("Faculty (id = {}) has been updated", faculty.getId());
+    }
+    /*
+
+    public List<Faculty> findAllFacultiesWhereOpenedRecruitments() {
+        return facultyDao.getAllFacultiesWhereOpenedRecruitments();
+    }
+
+     */
 }

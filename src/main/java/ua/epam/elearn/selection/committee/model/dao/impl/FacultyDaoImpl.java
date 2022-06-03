@@ -1,19 +1,39 @@
 package ua.epam.elearn.selection.committee.model.dao.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.epam.elearn.selection.committee.model.dao.FacultyDao;
 import ua.epam.elearn.selection.committee.model.dao.database.DBManager;
 import ua.epam.elearn.selection.committee.model.dao.impl.queries.FacultySQLQueries;
-import ua.epam.elearn.selection.committee.model.dao.impl.queries.UserSQLQueries;
 import ua.epam.elearn.selection.committee.model.dao.mapper.FacultyMapper;
-import ua.epam.elearn.selection.committee.model.dao.mapper.UserMapper;
 import ua.epam.elearn.selection.committee.model.entity.Faculty;
-import ua.epam.elearn.selection.committee.model.entity.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FacultyDaoImpl implements FacultyDao {
+
+    private final Logger logger = LogManager.getLogger(FacultyDaoImpl.class);
+
+
+    @Override
+    public boolean update(Faculty faculty) {
+        try (Connection con = DBManager.getInstance().getConnection();
+             PreparedStatement stmt = con.prepareStatement(FacultySQLQueries.UPDATE)) {
+
+            stmt.setString(1, faculty.getName());
+            stmt.setLong(2, faculty.getGeneralCapacity());
+            stmt.setLong(3, faculty.getBudgetCapacity());
+            stmt.setLong(4, faculty.getId());
+
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public Faculty getFacultyById(long id) {
         return getFacultyByIdAndQuery(id, FacultySQLQueries.SELECT_FACULTY_BY_ID);
@@ -127,16 +147,38 @@ public class FacultyDaoImpl implements FacultyDao {
     }
 
     @Override
-    public boolean deleteFaculty(int id) {
-        return false;
+    public boolean isExistedByFacultyId(Long facultyId) {
+        return getFacultyById(facultyId) != null;
     }
 
+    @Override
+    public boolean delete(Long id) {
+        try (Connection con = DBManager.getInstance().getConnection();
+             PreparedStatement stmt = con.prepareStatement(FacultySQLQueries.DELETE)) {
+
+            stmt.setLong(1, id);
+
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            logger.error("{}, when trying to delete Faculty by ID = {}", e.getMessage(), id);
+            throw new RuntimeException(e);
+        }
+    }
 
     private String getPaginationPageQuery(int limit, int offset) {
         return "LIMIT " + limit + " OFFSET " + offset + "\n";
     }
 
     private String getOrderByQuery(String order) {
-        return "ORDER BY " + order +"\n" ;
+        return "ORDER BY " + parseOrder(order) + "\n";
+    }
+
+    private String parseOrder(String order) {
+        if (order.equals("name_a"))
+            return "name ASC";
+        if (order.equals("name_z"))
+            return "name DESC";
+        return order;
     }
 }

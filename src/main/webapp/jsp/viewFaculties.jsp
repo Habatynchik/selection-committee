@@ -7,13 +7,25 @@
 
 <div class="container">
 
-    <div>
-        Sort by:
-        <button class="sort-order" type="button" value="name">name</button>
-        <button class="sort-order" type="button" value="general_capacity">general capacity</button>
-        <button class="sort-order" type="button" value="budget_capacity">budget capacity</button>
-    </div>
+    <div class="row mb-4">
 
+        <div class="dropdown col">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                Sort by:
+            </button>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                <li><a class="dropdown-item sort-order" href="#" value="name_a">name &#129045;</a></li>
+                <li><a class="dropdown-item sort-order" href="#" value="name_z">name &#129047;</a></li>
+                <li><a class="dropdown-item sort-order" href="#" value="general_capacity">general capacity</a></li>
+                <li><a class="dropdown-item sort-order" href="#" value="budget_capacity">budget capacity</a></li>
+            </ul>
+        </div>
+
+
+    </div>
 
 
     <div class="row row-cols-1 row-cols-md-4 g-4">
@@ -24,7 +36,7 @@
                 <div class="card h-100">
                     <div class="card-header">
                         <a style="color: darkcyan" href="/view_faculty?id=${faculty.id}">
-                            <c:out value="Faculty ${faculty.name}"/></a>
+                            <c:out value="${faculty.name}"/></a>
                     </div>
 
                     <div class="card-body">
@@ -68,12 +80,9 @@
 
     </div>
 
-
-    <c:forEach begin="1" end="${pagesNumber}" varStatus="loop">
-
-        <button class="myselect" id="${loop.index}" type="button" value="${loop.index}">${loop.index}</button>
-
-    </c:forEach>
+    <div class="mt-4">
+        <tagLib:paginationButtons currentPage="${currentPageNumber}" pages="${pagesNumber}"> </tagLib:paginationButtons>
+    </div>
 
 
 </div>

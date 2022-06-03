@@ -15,13 +15,14 @@ public class SubjectDaoImp implements SubjectDao {
     private static final String SELECT_SUBJECT_BY_ID = "SELECT * FROM subject WHERE id=?";
     private static final String CREATE_SUBJECT = "INSERT INTO subject (name_en, name_ru, name_uk) values (?, ?, ?)";
     private static final String INSERT_REQUIRED_SUBJECTS = "INSERT INTO required_subject (faculty_id, subject_id) VALUES(?,?)";
+    private static final String DELETE_REQUIRED_SUBJECTS = "DELETE FROM required_subject WHERE faculty_id = ?";
     private static final String SELECT_REQUIRED_SUBJECTS_BY_RECRUITMENT_ID =
             "SELECT subject.*\n" +
-            "FROM subject\n" +
-            "          JOIN required_subject ON required_subject.subject_id = subject.id\n" +
-            "          JOIN faculty ON required_subject.faculty_id = faculty.id\n" +
-            "          JOIN recruitment ON faculty.id = recruitment.faculty_id\n" +
-            "WHERE recruitment.id = ?";
+                    "FROM subject\n" +
+                    "          JOIN required_subject ON required_subject.subject_id = subject.id\n" +
+                    "          JOIN faculty ON required_subject.faculty_id = faculty.id\n" +
+                    "          JOIN recruitment ON faculty.id = recruitment.faculty_id\n" +
+                    "WHERE recruitment.id = ?";
 
     private static final String SELECT_REQUIRED_SUBJECTS_BY_FACULTY_ID =
             "SELECT subject.* " +
@@ -150,6 +151,20 @@ public class SubjectDaoImp implements SubjectDao {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public boolean deleteRequiredSubjects(Long facultyId) {
+        try (Connection con = DBManager.getInstance().getConnection();
+             PreparedStatement stmt = con.prepareStatement(DELETE_REQUIRED_SUBJECTS)) {
+
+            stmt.setLong(1, facultyId);
+
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

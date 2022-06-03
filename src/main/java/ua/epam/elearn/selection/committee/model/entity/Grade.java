@@ -1,6 +1,7 @@
 package ua.epam.elearn.selection.committee.model.entity;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Grade {
     private long grade;
@@ -68,6 +69,20 @@ public class Grade {
         public Grade build() {
             return newGrade;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Grade grade1 = (Grade) o;
+        return grade == grade1.grade && subjectId == grade1.subjectId && applicationId == grade1.applicationId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(grade, subjectId, applicationId);
     }
 
     @Override

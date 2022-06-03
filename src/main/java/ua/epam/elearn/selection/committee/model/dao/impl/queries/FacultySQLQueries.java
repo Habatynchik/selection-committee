@@ -4,6 +4,13 @@ public class FacultySQLQueries {
     private FacultySQLQueries() {
     }
 
+    public static final String UPDATE =
+            "UPDATE faculty\n" +
+                    "SET name         = ?,\n" +
+                    "general_capacity = ?,\n" +
+                    "budget_capacity  = ? \n" +
+                    "WHERE id = ?";
+
     public static final String CREATE_FACULTY =
             "INSERT INTO faculty (name, general_capacity, budget_capacity) values (?, ?, ?)";
 
@@ -26,5 +33,7 @@ public class FacultySQLQueries {
             "JOIN recruitment ON faculty.id = recruitment.faculty_id " +
             "WHERE recruitment.closed = false";
 
+    public static final String DELETE =
+            "DELETE FROM faculty WHERE id = ?";
 
 }

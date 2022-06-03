@@ -50,6 +50,8 @@ public class RecruitmentMapper {
             return arr.split(",");
         }
         return new String[]{"current"};
+
+
     }
 
     public void insertFiltersIntoRequest(String[] filters, HttpServletRequest req) {

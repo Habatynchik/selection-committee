@@ -23,13 +23,9 @@
                         </div>
 
                         <c:if test="${requestScope.authenticationException}">
-
                             <div class="alert alert-warning" role="alert">
                                 <fmt:message key="loginPage.exception.authenticationException"/>
                             </div>
-
-
-
                         </c:if>
                         <c:if test="${requestScope.accountIsBlocked}">
                             <p class="text-center error-message mt-3"><fmt:message

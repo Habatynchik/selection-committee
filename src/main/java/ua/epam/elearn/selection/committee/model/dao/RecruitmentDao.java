@@ -4,12 +4,14 @@ import ua.epam.elearn.selection.committee.model.entity.Application;
 import ua.epam.elearn.selection.committee.model.entity.Faculty;
 import ua.epam.elearn.selection.committee.model.entity.Recruitment;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 public interface RecruitmentDao {
 
     Recruitment getRecruitmentById(long id);
+
     Recruitment getRecruitmentByApplicationId(long applicationId);
 
     List<Recruitment> getAllRecruitmentsByFacultyId(long facultyId);
@@ -18,13 +20,16 @@ public interface RecruitmentDao {
 
     List<Recruitment> getAllRecruitments();
 
-     int getCountOfFacultiesByFilter(String[] filters);
+    int getCountOfFacultiesByFilter(String[] filters);
 
     Map<Recruitment, Faculty> getPaginationAllRecruitmentsWithFaculties(String[] filters, String order, int limit, int offset);
+
     boolean addRecruitment(Recruitment recruitment);
 
     boolean closeRecruitment(long recruitmentId);
 
-    Application  getRecruitmentApplicationStatusByUserId(long recruitmentId, long userId);
+    boolean updateRecruitmentDate(long recruitmentId, LocalDate date);
+
+    Application getRecruitmentApplicationStatusByUserId(long recruitmentId, long userId);
 
 }

@@ -24,6 +24,7 @@ public class GetRecruitmentsCommand implements Command {
     private static final String RECRUITMENT_MAP = "recruitmentMap";
 
     private static final String PAGES_NUMBER = "pagesNumber";
+    private static final String CURRENT_PAGE_NUMBER = "currentPageNumber";
 
     private final RecruitmentMapper recruitmentMapper = new RecruitmentMapper();
 
@@ -61,6 +62,8 @@ public class GetRecruitmentsCommand implements Command {
 
         request.setAttribute(RECRUITMENT_MAP, recruitmentMap);
         request.setAttribute(PAGES_NUMBER, pagesNumber);
+        request.setAttribute(CURRENT_PAGE_NUMBER, activePageNumber);
+
         recruitmentMapper.insertFiltersIntoRequest(filterParameters, request);
 
         return JspFilePath.RECRUITMENTS;

@@ -8,7 +8,6 @@ import java.sql.SQLException;
 public class ApplicationStateMapper {
 
     public ApplicationState extractFromResultSet(ResultSet rs) throws SQLException {
-        System.out.println(rs.getLong(Fields.ID));
         return ApplicationState.getValue(rs.getLong(Fields.ID));
 
     }

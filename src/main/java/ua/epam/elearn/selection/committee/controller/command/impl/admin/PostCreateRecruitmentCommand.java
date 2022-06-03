@@ -29,7 +29,6 @@ public class PostCreateRecruitmentCommand implements Command {
     public String execute(HttpServletRequest request) {
 
         RecruitmentDto recruitmentDto = recruitmentMapper.fetchRecruitmentDtoFromRequest(request);
-        System.out.println(recruitmentDto.getEndDate());
         boolean recruitmentDtoIsValid = RecruitmentValidator.validate(recruitmentDto, request);
 
 

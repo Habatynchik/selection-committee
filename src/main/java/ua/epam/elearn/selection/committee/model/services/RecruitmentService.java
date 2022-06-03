@@ -69,10 +69,10 @@ public class RecruitmentService {
     }
 
     public void closeRecruitment(long recruitmentId) {
+        recruitmentDao.updateRecruitmentDate(recruitmentId, LocalDate.now());
         recruitmentDao.closeRecruitment(recruitmentId);
         logger.info("Recruitment ({}) was closed", recruitmentId);
     }
 
 
-
-    }
+}

@@ -91,6 +91,7 @@ public class FrontControllerServlet extends HttpServlet {
         getCommands.put(UrlPath.APPLICATION, new GetApplicationCommand(serviceFactory.createApplicationService()));
         getCommands.put(UrlPath.PROFILE, new GetProfileCommand(serviceFactory.createApplicationService()));
         getCommands.put(UrlPath.USERS, new GetUsersCommand(serviceFactory.createUserService()));
+        getCommands.put(UrlPath.CHANGE_FACULTY, new GetUpdateFacultyCommand(serviceFactory.createFacultyService(), serviceFactory.createSubjectService()));
     }
 
 
@@ -104,6 +105,8 @@ public class FrontControllerServlet extends HttpServlet {
         postCommands.put(UrlPath.CREATE_APPLICATION, new PostSubmitApplicationCommand(serviceFactory.createApplicationService(), serviceFactory.createSubjectService()));
         postCommands.put(UrlPath.USERS, new PostBlockUnblockUserCommand(serviceFactory.createUserService()));
         postCommands.put(UrlPath.CLOSE_RECRUITMENT, new PostCloseRecruitmentCommand(serviceFactory.createRecruitmentService(), serviceFactory.createApplicationService()));
+        postCommands.put(UrlPath.DELETE_FACULTY, new PostDeleteFacultyCommand(serviceFactory.createFacultyService()));
+        postCommands.put(UrlPath.CHANGE_FACULTY, new PostUpdateFacultyCommand(serviceFactory.createFacultyService(), serviceFactory.createSubjectService()));
 
     }
 

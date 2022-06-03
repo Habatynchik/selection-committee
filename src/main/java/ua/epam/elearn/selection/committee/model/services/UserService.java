@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class UserService {
 
-    Logger logger = LogManager.getLogger(UserService.class);
+    private final Logger logger = LogManager.getLogger(UserService.class);
 
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
