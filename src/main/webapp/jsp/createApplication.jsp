@@ -15,13 +15,17 @@
             <div class="card border-0 shadow">
 
                 <div class="card-header">
-                    <h5> New Application </h5>
+                    <h5>
+                        <fmt:message key="addApplication.tittle"/>
+                    </h5>
                 </div>
 
                 <div class="card-body">
-                    <h5 class="card-title">Input marks, please</h5>
+                    <h5 class="card-title">
+                        <fmt:message key="addApplication.input"/>
+                    </h5>
 
-                    <form action="/create-application" method="post">
+                    <form action="${pageContext.request.contextPath}/create-application" method="post">
 
                         <input type="hidden" name="recruitmentId" value="${recruitmentId}">
                         <input type="hidden" name="userId" value="${user.id}">
@@ -37,7 +41,9 @@
 
                                             <input type="number" class="form-control"
                                                    id="${subject.id}" name="grades">
-                                            <label for=${subject.id}> ${subject.nameEn} </label>
+                                            <label for=${subject.id}>
+                                                <tagLib:subjectName subject="${subject}"> </tagLib:subjectName>
+                                            </label>
 
                                         </div>
                                     </c:forEach>
@@ -48,24 +54,25 @@
 
                         <c:if test="${requestScope.UserAlreadyAppliedException}">
                             <div class="alert alert-warning" role="alert">
-                                <fmt:message key="exception.UserAlreadyAppliedException"/>
+                                <fmt:message key="application.exception.UserAlreadyAppliedException"/>
                             </div>
                         </c:if>
 
                         <c:if test="${requestScope.InvalidNumberException}">
                             <div class="alert alert-warning" role="alert">
-                                <fmt:message key="exception.InvalidNumberException"/>
+                                <fmt:message key="application.exception.InvalidNumberException"/>
                             </div>
                         </c:if>
                         <c:if test="${requestScope.InvalidGradeException}">
                             <div class="alert alert-warning" role="alert">
-                                <fmt:message key="exception.InvalidGradeException"/>
+                                <fmt:message key="application.exception.InvalidGradeException"/>
                             </div>
                         </c:if>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary"> Submit</button>
+                            <button type="submit" class="btn btn-primary">
+                                <fmt:message key="addApplication.submit"/>
+                            </button>
                         </div>
                     </form>
 

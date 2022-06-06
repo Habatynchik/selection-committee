@@ -43,13 +43,20 @@ public class GetRecruitmentsCommand implements Command {
 
 
         int activePageNumber = getActivePageNumber(request);
+        int pagesNumber = recruitmentService.getCountOfFaculties(filterParameters);
+
+        if (pagesNumber <= activePageNumber)
+            activePageNumber = pagesNumber;
+
         String orderBy = getSortFilter(request);
         User user = (User) request.getSession().getAttribute("user");
 
 
+
         Map<Recruitment, Faculty> recruitmentMap = recruitmentService
                 .getPaginationAllRecruitmentsWithFaculties(filterParameters, orderBy, activePageNumber);
-        int pagesNumber = recruitmentService.getCountOfFaculties(filterParameters);
+
+
 
 
         for (Recruitment recruitment : recruitmentMap.keySet()) {

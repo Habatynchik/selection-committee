@@ -7,16 +7,18 @@ import ua.epam.elearn.selection.committee.controller.path.JspFilePath;
 import ua.epam.elearn.selection.committee.controller.path.UrlPath;
 import ua.epam.elearn.selection.committee.controller.validator.FacultyValidator;
 import ua.epam.elearn.selection.committee.model.dto.FacultyDto;
+import ua.epam.elearn.selection.committee.model.entity.Subject;
 import ua.epam.elearn.selection.committee.model.exception.admin.FacultyNameIsReservedException;
 import ua.epam.elearn.selection.committee.model.services.FacultyService;
 import ua.epam.elearn.selection.committee.model.services.SubjectService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public class PostCreateFacultyCommand implements Command {
 
-    private static final String FACULTY_NAME_IS_RESERVED_EXCEPTION = "facultyNameIsReserved";
-
+    private final String FACULTY_NAME_IS_RESERVED_EXCEPTION = "facultyNameIsReserved";
+    private final String SUBJECT_LIST = "subjectList";
 
     private final FacultyMapper facultyInfoMapper = new FacultyMapper();
     private final SubjectMapper subjectMapper = new SubjectMapper();
@@ -31,7 +33,6 @@ public class PostCreateFacultyCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-
 
         FacultyDto facultyDto = facultyInfoMapper.fetchFacultyDtoWithSubjectsFromRequest(request);
 
@@ -48,7 +49,6 @@ public class PostCreateFacultyCommand implements Command {
                         subjectMapper.fetchSubjectListDtoFromRequest(request)
                 );
 
-
                 return UrlPath.REDIRECT + UrlPath.FACULTIES;
 
             } catch (FacultyNameIsReservedException e) {
@@ -56,9 +56,8 @@ public class PostCreateFacultyCommand implements Command {
             }
         }
 
-        //facultyInfoMapper.insertFacultyDtoIntoRequest(facultyDto, request);
-
-        // request.setAttribute("click", true);
+        List<Subject> subjectList = subjectService.getAllSubjects();
+        request.setAttribute(SUBJECT_LIST, subjectList);
         return JspFilePath.ADD_FACULTY;
 
     }

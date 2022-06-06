@@ -44,10 +44,15 @@ public class ApplicationDaoImpl implements ApplicationDao {
                     "WHERE application.user_id = ?";
 
     private static final String SELECT_APPLICATIONS_BY_RECRUITMENT =
-            "SELECT * FROM application\n" +
-                    "JOIN \"user\" as \"user\"  on application.user_id = \"user\".id\n" +
-                    "JOIN recruitment on application.recruitment_id = recruitment.id\n" +
-                    "WHERE application.recruitment_id = ?";
+            "SELECT *,\n" +
+                    "       (SELECT sum(subject_user_grades.grade)\n" +
+                    "        FROM subject_user_grades\n" +
+                    "        WHERE subject_user_grades.application_id = application.id) AS grade\n" +
+                    "FROM application\n" +
+                    "         JOIN \"user\" as \"user\" on application.user_id = \"user\".id\n" +
+                    "         JOIN recruitment on application.recruitment_id = recruitment.id\n" +
+                    "WHERE application.recruitment_id = ?\n" +
+                    "ORDER BY grade DESC";
 
     private static final String SELECT_GRADES_BY_APPLICATION =
             "SELECT * FROM subject\n" +

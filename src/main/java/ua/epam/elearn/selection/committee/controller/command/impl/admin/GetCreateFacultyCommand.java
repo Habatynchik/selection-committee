@@ -11,7 +11,7 @@ import java.util.List;
 
 public class GetCreateFacultyCommand implements Command {
 
-    private static final String SUBJECT_LIST = "subjectList";
+    private final String SUBJECT_LIST = "subjectList";
 
     SubjectService subjectService;
 

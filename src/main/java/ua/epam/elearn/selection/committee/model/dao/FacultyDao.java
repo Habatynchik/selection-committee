@@ -13,6 +13,7 @@ public interface FacultyDao {
     Faculty getFacultyByName(String name);
 
     List<Faculty> getAllFaculties();
+
     List<Faculty> getPaginationAllFaculties(String order, int limit, int offset);
 
     List<Faculty> getAllFacultiesWhereOpenedRecruitments();
@@ -23,4 +24,6 @@ public interface FacultyDao {
 
     boolean delete(Long id);
     boolean update(Faculty faculty);
+
+    int getAllFacultiesSize();
 }

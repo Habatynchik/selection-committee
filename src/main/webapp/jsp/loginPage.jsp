@@ -8,6 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+
             <div class="card border-0 shadow rounded-3 my-5">
                 <div class="card-body p-4 p-sm-5">
                     <h5 class="card-title text-center mb-5 fw-light fs-5">
@@ -27,6 +28,7 @@
                                 <fmt:message key="loginPage.exception.authenticationException"/>
                             </div>
                         </c:if>
+
                         <c:if test="${requestScope.accountIsBlocked}">
                             <p class="text-center error-message mt-3"><fmt:message
                                     key="loginPage.exception.accountIsBlocked"/></p>
@@ -54,6 +56,7 @@
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

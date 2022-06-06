@@ -13,53 +13,60 @@
       <div class="card border-0 shadow">
 
         <div class="card-header">
-          <h5> New Recruitment</h5>
+          <h5>
+            <fmt:message key="addRecruitment.tittle"/>
+          </h5>
         </div>
         <div class="card-body">
 
-          <h5 class="card-title">Special title treatment</h5>
           <form class="mb-3" action="${pageContext.request.contextPath}/add_recruitment" method="post">
             <div class="modal-body">
 
               <input type="hidden" name="facultyId" value="${facultyId}">
 
               <div class="mb-3">
-                <label for="name" class="col-form-label">Name:</label>
+                <label for="name" class="col-form-label">
+                  <fmt:message key="addRecruitment.name"/>:
+                </label>
                 <input type="text" class="form-control" id="name" name="name">
               </div>
 
               <div class="mb-3">
-                <label for="startDate" class="col-form-label">Start Date:</label>
+                <label for="startDate" class="col-form-label">
+                  <fmt:message key="addRecruitment.startDate"/>:
+                </label>
                 <input type="date" class="form-control" id="startDate" name="startDate">
               </div>
 
               <div class="mb-3">
-                <label for="endDate" class="col-form-label">End Date:</label>
+                <label for="endDate" class="col-form-label">
+                  <fmt:message key="addRecruitment.endDate"/>:
+                </label>
                 <input type="date" class="form-control" id="endDate" name="endDate">
               </div>
             </div>
 
             <c:if test="${requestScope.emptyFieldException}">
               <div class="alert alert-warning" role="alert">
-                <fmt:message key="exception.emptyFieldException"/>
+                <fmt:message key="recruitment.exception.emptyFieldException"/>
               </div>
             </c:if>
 
             <c:if test="${requestScope.dateNotMatchTemplateException}">
               <div class="alert alert-warning" role="alert">
-                <fmt:message key="exception.dateNotMatchTemplateException"/>
+                <fmt:message key="recruitment.exception.dateNotMatchTemplateException"/>
               </div>
             </c:if>
 
             <c:if test="${requestScope.dateOutOfDateException}">
               <div class="alert alert-warning" role="alert">
-                <fmt:message key="exception.dateOutOfDateException"/>
+                <fmt:message key="recruitment.exception.dateOutOfDateException"/>
               </div>
             </c:if>
 
             <c:if test="${requestScope.endDateBeforeStartDateException}">
               <div class="alert alert-warning" role="alert">
-                <fmt:message key="exception.endDateBeforeStartDateException"/>
+                <fmt:message key="recruitment.exception.endDateBeforeStartDateException"/>
               </div>
             </c:if>
 

@@ -19,6 +19,7 @@ public class ApplicationMapper {
                 .addUser(extractUserResultSet(rs))
                 .addRecruitment(extractRecruitmentFromResultSet(rs))
                 .addState(extractApplicationStateFromResultSet(rs))
+                //.addAverageGrade(rs.getLong(Fields.GRADE))
                 .build();
     }
 

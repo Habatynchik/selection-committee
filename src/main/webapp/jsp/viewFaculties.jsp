@@ -12,15 +12,15 @@
         <div class="dropdown col">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                Sort by:
+                <fmt:message key="faculties.sortBy"/>
             </button>
 
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                <li><a class="dropdown-item sort-order" href="#" value="name_a">name &#129045;</a></li>
-                <li><a class="dropdown-item sort-order" href="#" value="name_z">name &#129047;</a></li>
-                <li><a class="dropdown-item sort-order" href="#" value="general_capacity">general capacity</a></li>
-                <li><a class="dropdown-item sort-order" href="#" value="budget_capacity">budget capacity</a></li>
+                <li><a class="dropdown-item sort-order" href="#" value="name_a"> <fmt:message key="faculties.name"/> &#129045;</a></li>
+                <li><a class="dropdown-item sort-order" href="#" value="name_z"> <fmt:message key="faculties.name"/> &#129047;</a></li>
+                <li><a class="dropdown-item sort-order" href="#" value="general_capacity"> <fmt:message key="faculties.generalCapacity"/></a></li>
+                <li><a class="dropdown-item sort-order" href="#" value="budget_capacity"> <fmt:message key="faculties.budgetCapacity"/></a></li>
             </ul>
         </div>
 
@@ -40,10 +40,10 @@
                     </div>
 
                     <div class="card-body">
-                        <h5 class="card-title">Open recruitment</h5>
+                        <h5 class="card-title"> <fmt:message key="faculties.info"/> </h5>
 
-                        <p class="card-text"> generalCapacity: ${faculty.generalCapacity}</p>
-                        <p class="card-text"> budgetCapacity: ${faculty.budgetCapacity}</p>
+                        <p class="card-text"> <fmt:message key="faculties.generalCapacity"/>: ${faculty.generalCapacity}</p>
+                        <p class="card-text"> <fmt:message key="faculties.budgetCapacity"/>: ${faculty.budgetCapacity}</p>
 
 
                     </div>
@@ -58,7 +58,7 @@
             <div class="col">
                 <div class="card h-100">
                     <div class="card-header">
-                        Add new Faculty
+                        <fmt:message key="faculties.addNewFaculty"/>
                     </div>
 
                     <div class="card-body">

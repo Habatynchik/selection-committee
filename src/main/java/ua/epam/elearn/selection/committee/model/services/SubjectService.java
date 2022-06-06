@@ -1,5 +1,7 @@
 package ua.epam.elearn.selection.committee.model.services;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.epam.elearn.selection.committee.model.dao.SubjectDao;
 import ua.epam.elearn.selection.committee.model.dto.SubjectDto;
 import ua.epam.elearn.selection.committee.model.entity.Subject;
@@ -7,6 +9,8 @@ import ua.epam.elearn.selection.committee.model.entity.Subject;
 import java.util.List;
 
 public class SubjectService {
+
+    private final Logger logger = LogManager.getLogger(SubjectService.class);
 
     private final SubjectDao subjectDao;
 

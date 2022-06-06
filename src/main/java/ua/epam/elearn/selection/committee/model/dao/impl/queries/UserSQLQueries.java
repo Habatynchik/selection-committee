@@ -20,7 +20,7 @@ public class UserSQLQueries {
 
     public static final String SELECT_USER_BY_LOGIN_AND_PASSWORD = "SELECT * FROM \"user\" WHERE login = ? AND password = ?";
 
-    public static final String SELECT_ALL_USERS = "SELECT * FROM \"user\" ORDER BY id";
+    public static final String SELECT_ALL_USERS = "SELECT * FROM \"user\"\n";
 
     public static final String BLOCK_USER_BY_ID = "UPDATE \"user\" SET blocked=true WHERE id = ?";
 

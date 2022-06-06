@@ -15,10 +15,9 @@
             <div class="card border-0 shadow">
 
                 <div class="card-header">
-                    <h5> Update Faculty</h5>
+                    <h5>  <fmt:message key="changeFaculty.newFaculty"/></h5>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
                     <form action="/change-faculty" method="post">
                         <div class="modal-body">
 
@@ -26,23 +25,28 @@
                                    name="facultyId" value="${requestScope.facultyId}">
 
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput"
-                                       placeholder="name@example.com"
+                                <input type="text" class="form-control" id="facultyName"
                                        name="facultyName" value="${requestScope.facultyName}">
-                                <label for="floatingInput">Faculty name</label>
+                                <label for="facultyName">
+                                    <fmt:message key="changeFaculty.facultyName"/>
+                                </label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control" id="floatingPassword" placeholder="Password"
+                                <input type="number" class="form-control" id="generalCapacity"
                                        name="generalCapacity" value="${requestScope.generalCapacity}">
-                                <label for="floatingPassword">General capacity</label>
+                                <label for="generalCapacity">
+                                    <fmt:message key="changeFaculty.generalCapacity"/>
+                                </label>
                             </div>
 
 
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control" id="floatingPassword12" placeholder="Password"
+                                <input type="number" class="form-control" id="budgetCapacity"
                                        name="budgetCapacity" value="${requestScope.budgetCapacity}">
-                                <label for="floatingPassword12">Budget capacity</label>
+                                <label for="budgetCapacity">
+                                    <fmt:message key="changeFaculty.budgetCapacity"/>
+                                </label>
                             </div>
 
 
@@ -69,45 +73,47 @@
 
                             <c:if test="${requestScope.generalCapacityIncorrectException}">
                                 <div class="alert alert-warning" role="alert">
-                                    <fmt:message key="loginPage.exception.generalCapacityIncorrectException"/>
+                                    <fmt:message key="faculty.exception.generalCapacityIncorrectException"/>
                                 </div>
                             </c:if>
 
                             <c:if test="${requestScope.budgetCapacityIncorrectException}">
                                 <div class="alert alert-warning" role="alert">
-                                    <fmt:message key="loginPage.exception.budgetCapacityIncorrectException"/>
+                                    <fmt:message key="faculty.exception.budgetCapacityIncorrectException"/>
                                 </div>
                             </c:if>
 
                             <c:if test="${requestScope.generalCapacityLessBudgetCapacityException}">
                                 <div class="alert alert-warning" role="alert">
-                                    <fmt:message key="loginPage.exception.generalCapacityLessBudgetCapacityException"/>
+                                    <fmt:message key="faculty.exception.generalCapacityLessBudgetCapacityException"/>
                                 </div>
                             </c:if>
 
                             <c:if test="${requestScope.emptyNameFieldException}">
                                 <div class="alert alert-warning" role="alert">
-                                    <fmt:message key="loginPage.exception.emptyNameFieldException"/>
+                                    <fmt:message key="faculty.exception.emptyNameFieldException"/>
                                 </div>
                             </c:if>
 
                             <c:if test="${requestScope.facultyNameIsReserved}">
                                 <div class="alert alert-warning" role="alert">
-                                    <fmt:message key="loginPage.exception.facultyNameIsReserved"/>
+                                    <fmt:message key="faculty.exception.facultyNameIsReserved"/>
                                 </div>
                             </c:if>
 
                             <c:if test="${requestScope.fewRequiredSubjects}">
                                 <div class="alert alert-warning" role="alert">
-                                    <fmt:message key="loginPage.exception.fewRequiredSubjects"/>
+                                    <fmt:message key="faculty.exception.fewRequiredSubjects"/>
                                 </div>
                             </c:if>
 
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary"> Send message</button>
+
+                            <button type="submit" class="btn btn-primary">
+                                <fmt:message key="changeFaculty.ok"/>
+                            </button>
                         </div>
                     </form>
 

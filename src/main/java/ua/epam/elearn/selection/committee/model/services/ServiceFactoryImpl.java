@@ -41,6 +41,4 @@ public class ServiceFactoryImpl extends ServiceFactory {
                 DaoFactory.getInstance().createFacultyDao()
         );
     }
-
-
 }

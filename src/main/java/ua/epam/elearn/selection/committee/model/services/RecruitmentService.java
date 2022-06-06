@@ -27,6 +27,10 @@ public class RecruitmentService {
         return recruitmentDao.getAllRecruitments();
     }
 
+    public List<Recruitment> getAllOpenedOverdueRecruitments() {
+        return recruitmentDao.getAllOpenedOverdueRecruitments();
+    }
+
     public Recruitment getRecruitment(long id) {
         return recruitmentDao.getRecruitmentById(id);
     }

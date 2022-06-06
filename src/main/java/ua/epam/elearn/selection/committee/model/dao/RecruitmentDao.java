@@ -20,6 +20,8 @@ public interface RecruitmentDao {
 
     List<Recruitment> getAllRecruitments();
 
+    List<Recruitment> getAllOpenedOverdueRecruitments();
+
     int getCountOfFacultiesByFilter(String[] filters);
 
     Map<Recruitment, Faculty> getPaginationAllRecruitmentsWithFaculties(String[] filters, String order, int limit, int offset);

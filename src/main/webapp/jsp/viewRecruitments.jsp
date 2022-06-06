@@ -20,21 +20,37 @@
         <div class="dropdown col">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                Sort by:
+                <fmt:message key="recruitments.sortBy"/>
             </button>
 
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                <li><a class="dropdown-item sort-order" href="#" value="faculty.name">faculty name</a></li>
-                <li><a class="dropdown-item sort-order" href="#" value="recruitment.name">name</a></li>
-                <li><a class="dropdown-item sort-order" href="#" value="start_date">start date</a></li>
-                <li><a class="dropdown-item sort-order" href="#" value="end_date">end date</a></li>
+                <li>
+                    <a class="dropdown-item sort-order" href="#" value="faculty.name">
+                        <fmt:message key="recruitments.facultyName"/>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item sort-order" href="#" value="recruitment.name">
+                        <fmt:message key="recruitments.name"/>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item sort-order" href="#" value="start_date">
+                        <fmt:message key="recruitments.startDate"/>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item sort-order" href="#" value="end_date">
+                        <fmt:message key="recruitments.endDate"/>
+                    </a>
+                </li>
             </ul>
         </div>
 
 
         <div class="col col-lg-5 text-end">
-            Filter:
+            <fmt:message key="recruitments.filter"/>:
             <div class="form-check form-check-inline ">
 
                 <c:if test="${previous}">
@@ -49,7 +65,9 @@
                            value="previous">
                 </c:if>
 
-                <label class="form-check-label" for="inlineCheckbox3">previous</label>
+                <label class="form-check-label" for="inlineCheckbox3">
+                    <fmt:message key="recruitments.previous"/>
+                </label>
             </div>
             <div class="form-check form-check-inline">
                 <c:if test="${current}">
@@ -63,7 +81,9 @@
                            value="current">
                 </c:if>
 
-                <label class="form-check-label" for="inlineCheckbox2">current</label>
+                <label class="form-check-label" for="inlineCheckbox2">
+                    <fmt:message key="recruitments.current"/>
+                </label>
             </div>
             <div class="form-check form-check-inline">
                 <c:if test="${future}">
@@ -77,7 +97,9 @@
                            value="future">
                 </c:if>
 
-                <label class="form-check-label" for="inlineCheckbox1">future</label>
+                <label class="form-check-label" for="inlineCheckbox1">
+                    <fmt:message key="recruitments.future"/>
+                </label>
             </div>
         </div>
     </div>
@@ -90,12 +112,14 @@
 
                 <div class="card h-100">
                     <div class="card-header">
-                        ${recruitment.value.name}
+                            ${recruitment.value.name}
                     </div>
                     <div class="card-body">
                         <a href="/recruitment?recruitmentId=${recruitment.key.id}" class="stretched-link"></a>
 
-                        <h5 class="card-title">Recruitment:</h5>
+                        <h5 class="card-title">
+                            <fmt:message key="recruitments.recruitment"/>:
+                        </h5>
                         <p class="card-text">${recruitment.key.name}</p>
                         <p class="card-text">
                             <tagLib:dateTimeFormat
@@ -112,13 +136,19 @@
 
                                     <c:choose>
                                         <c:when test="${role == 'ADMIN'}">
-                                            <button type="submit" class="btn btn-primary disabled">Register</button>
+                                            <button type="submit" class="btn btn-primary disabled">
+                                                <fmt:message key="recruitments.register"/>
+                                            </button>
                                         </c:when>
                                         <c:when test="${recruitment.key.closed == true}">
-                                            <button type="submit" class="btn btn-primary disabled">Register</button>
+                                            <button type="submit" class="btn btn-primary disabled">
+                                                <fmt:message key="recruitments.register"/>
+                                            </button>
                                         </c:when>
                                         <c:otherwise>
-                                            <button type="submit" class="btn btn-primary ">Register</button>
+                                            <button type="submit" class="btn btn-primary ">
+                                                <fmt:message key="recruitments.register"/>
+                                            </button>
                                         </c:otherwise>
                                     </c:choose>
                                 </form>
@@ -131,10 +161,14 @@
 
                                         <c:choose>
                                             <c:when test="${recruitment.key.closed == true}">
-                                                <button type="submit" class="btn btn-primary disabled">Close</button>
+                                                <button type="submit" class="btn btn-primary disabled">
+                                                    <fmt:message key="recruitments.close"/>
+                                                </button>
                                             </c:when>
                                             <c:otherwise>
-                                                <button type="submit" class="btn btn-primary ">Close</button>
+                                                <button type="submit" class="btn btn-primary ">
+                                                    <fmt:message key="recruitments.close"/>
+                                                </button>
                                             </c:otherwise>
                                         </c:choose>
 

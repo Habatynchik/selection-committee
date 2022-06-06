@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.epam.elearn.selection.committee.model.dao.UserDao;
 import ua.epam.elearn.selection.committee.model.dto.UserDto;
+import ua.epam.elearn.selection.committee.model.entity.Faculty;
 import ua.epam.elearn.selection.committee.model.entity.User;
 import ua.epam.elearn.selection.committee.model.exception.user.AuthenticationException;
 import ua.epam.elearn.selection.committee.model.exception.user.EmailIsReservedException;
@@ -22,12 +23,18 @@ public class UserService {
 
     private final Logger logger = LogManager.getLogger(UserService.class);
 
+    private final int PAGE_SIZE = 10;
+
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
 
     public UserService(PasswordEncoder passwordEncoder, UserDao userDao) {
         this.passwordEncoder = passwordEncoder;
         this.userDao = userDao;
+    }
+
+    public int getCountOfUsers() {
+        return (int) Math.ceil(userDao.getAllUsersSize()  / (double) PAGE_SIZE);
     }
 
     public User findById(Long id) {
@@ -42,13 +49,18 @@ public class UserService {
         return userDao.getRoleByRoleId(roleId);
     }
 
+    public List<User> getPaginationAllUsers(String order, int pageNum) {
+        int offset = PAGE_SIZE * (pageNum - 1) ;
+        return userDao.getPaginationAllUsers(order, PAGE_SIZE, offset);
+    }
+
     /**
      * Process authentication.
      *
      * @param username String representing username.
      * @param password String representing  not encoded password.
      * @return User instance representing that authentication has been done successful.
-     * @throws UserIsBlockedException Indicates that User is blocked.
+     * @throws UserIsBlockedException  Indicates that User is blocked.
      * @throws AuthenticationException Indicates that credentials are incorrect.
      */
     public User doAuthentication(String username, String password) throws UserIsBlockedException, AuthenticationException {

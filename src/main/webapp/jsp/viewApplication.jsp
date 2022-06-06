@@ -7,28 +7,82 @@
 
 <div class="container">
 
+    <div class="row">
+        <div class="col-sm-5 mx-auto">
+            <div class="card border-0 shadow">
 
-    <h1><a href="/recruitment?recruitmentId=${recruitment.id}"> ${recruitment.name} </a></h1>
+                <div class="card-header">
+                    <h3> ${recruitment.name} </h3>
+                </div>
 
-    <p>
+                <div class="card-body">
 
-        <c:out value="${application.user.firstName}"/>
-        <c:out value="${application.user.secondName}"/>
+                    <dl class="row">
+                        <dt class="col-sm-4">
+                            <fmt:message key="application.name"/>:
+                        </dt>
+                        <dd class="col-sm-8">
+                            ${application.user.firstName}
+                        </dd>
 
-        Average Score:
-        <c:out value="${application.averageGrade}"/>
+                        <dt class="col-sm-4">
+                            <fmt:message key="application.surname"/>:
+                        </dt>
+                        <dd class="col-sm-8">
+                            ${application.user.secondName}
+                        </dd>
 
-        <c:out value="${application.state}"/>
+                        <dt class="col-sm-4">
+                            <fmt:message key="application.patronymic"/>:
+                        </dt>
+                        <dd class="col-sm-8">
+                            ${application.user.patronymic}
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <fmt:message key="application.averageScore"/>:
+                        </dt>
+                        <dd class="col-sm-8">
+                            ${application.averageGrade}
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <fmt:message key="application.state"/>:
+                        </dt>
+                        <dd class="col-sm-8">
+                            ${application.state}
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <fmt:message key="application.subjects"/>:
+                        </dt>
+                        <dd class="col-sm-8">
+                            <dl class="row">
+                                <c:forEach var="subject" items="${application.subjects}">
+                                    <dt class="col-sm-8">
+                                       <tagLib:subjectName subject="${subject}"> </tagLib:subjectName> :
+                                    </dt>
+                                    <dd class="col-sm-4">
+                                        <c:out value="${subject.grade.grade}"/>
+                                    </dd>
+                                </c:forEach>
+                            </dl>
+                        </dd>
+
+                    </dl>
 
 
-    </p>
+                    <div class="modal-footer">
+                        <a class="btn btn-secondary" href="/recruitment?recruitmentId=${recruitment.id}">
+                            <fmt:message key="application.close"/>
+                        </a>
+                    </div>
 
-    <c:forEach var="subject" items="${application.subjects}">
 
-        <c:out value="${subject.nameEn}"/>
-        <c:out value="${subject.grade.grade}"/>
-
-    </c:forEach>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </div>

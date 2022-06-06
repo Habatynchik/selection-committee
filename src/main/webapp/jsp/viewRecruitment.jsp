@@ -10,24 +10,53 @@
         <c:out value="${recruitment.name}"/>
     </h1>
 
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered">
+                <thead class="bg-info ">
+                <tr>
+                    <th scope="col">
+                        <fmt:message key="recruitment.name"/>
+                    </th>
+                    <th scope="col">
+                        <fmt:message key="recruitment.surname"/>
+                    </th>
+                    <th scope="col">
+                        <fmt:message key="recruitment.patronymic"/>
+                    </th>
+                    <th scope="col">
+                        <fmt:message key="recruitment.score"/>
+                    </th>
+                    <th scope="col">
+                        <fmt:message key="recruitment.status"/>
+                    </th>
+                    <th scope="col">
+                        <fmt:message key="recruitment.actions"/>
+                    </th>
+                </tr>
+                </thead>
+                <c:forEach var="application" items="${applicationList}">
+                <tbody class="bg-light">
+                <tr>
+                    <th >${application.user.firstName}</th>
+                    <td>${application.user.secondName}</td>
+                    <td>${application.user.patronymic}</td>
+                    <td>${application.averageGrade}</td>
+                    <td>${application.state}</td>
 
-    <c:forEach var="application" items="${applicationList}">
+                    <td>
+                        <a href="/application?id=${application.id}" class=" btn btn-primary">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    </td>
+                </tr>
+                </c:forEach>
 
-        <p>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-            <a href="/application?id=${application.id}"> Check application </a>
-
-            <c:out value="${application.user.firstName}"/>
-            <c:out value="${application.user.secondName}"/>
-
-            Average Score:
-            <c:out value="${application.averageGrade}"/>
-
-            <c:out value="${application.state}"/>
-
-
-        </p>
-    </c:forEach>
 
 
 </div>

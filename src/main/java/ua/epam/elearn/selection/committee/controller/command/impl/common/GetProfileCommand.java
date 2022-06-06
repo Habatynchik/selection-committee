@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class GetProfileCommand implements Command {
-    private final String USER = "userId";
+    private final String USER = "user_profile";
+    private final String USER_ID = "userId";
     private final String APPLICATIONS = "applications";
 
     ApplicationService applicationService;
@@ -26,7 +27,7 @@ public class GetProfileCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
 
-        Long userId = Long.valueOf(request.getParameter(USER));
+        Long userId = Long.valueOf(request.getParameter(USER_ID));
 
         List<Application> applicationList = applicationService.getAllApplicationsByUserId(userId);
 

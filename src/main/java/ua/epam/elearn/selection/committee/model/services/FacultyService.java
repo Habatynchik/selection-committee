@@ -26,7 +26,7 @@ public class FacultyService {
     }
 
     public int getCountOfFaculties() {
-        return (int) Math.ceil(facultyDao.getAllFaculties().size() / (double) PAGE_SIZE);
+        return (int) Math.ceil(facultyDao.getAllFacultiesSize()  / (double) PAGE_SIZE);
     }
 
     public List<Faculty> getPaginationAllFaculties(String order, int pageNum) {

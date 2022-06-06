@@ -1,5 +1,7 @@
 package ua.epam.elearn.selection.committee.model.dao.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.epam.elearn.selection.committee.model.dao.RecruitmentDao;
 import ua.epam.elearn.selection.committee.model.dao.database.DBManager;
 import ua.epam.elearn.selection.committee.model.dao.impl.queries.FacultySQLQueries;
@@ -16,8 +18,19 @@ import java.util.*;
 
 public class RecruitmentDaoImpl implements RecruitmentDao {
 
+    private final Logger logger = LogManager.getLogger(RecruitmentDaoImpl.class);
+
     private static final String SELECT_ALL_RECRUITMENTS =
             "SELECT * FROM recruitment";
+
+    private static final String SELECT_ALL_OPENED_OVERDUE_RECRUITMENTS =
+            "SELECT * FROM recruitment\n" +
+            "WHERE closed = false AND end_date < CURRENT_DATE";
+
+    private static final String SELECT_ALL_OPENED_RECRUITMENTS =
+            "SELECT * FROM recruitment\n" +
+            "WHERE closed = false";
+
     private static final String SELECT_OPENED_RECRUITMENTS_BY_FACULTY_ID =
             "SELECT * FROM recruitment WHERE closed=false and faculty_id=? AND ? BETWEEN start_date AND end_date";
     private static final String SELECT_RECRUITMENT_BY_ID =
@@ -37,7 +50,9 @@ public class RecruitmentDaoImpl implements RecruitmentDao {
                     "WHERE recruitment.id = ? AND \"user\".id = ?";
     public static final String CLOSE_RECRUITMENT_BY_ID = "UPDATE recruitment SET closed=true WHERE id = ?";
     public static final String UPDATE_RECRUITMENT_DATE_BY_ID = "UPDATE recruitment SET end_date=? WHERE id = ?";
-
+    private static final String SELECT_ALL_RECRUITMENT_AND_FACULTIES =
+            "SELECT * FROM recruitment\n" +
+                    "JOIN faculty ON recruitment.faculty_id = faculty.id";
     @Override
     public Recruitment getRecruitmentById(long id) {
         return getRecruitmentByIdAndQuery(id, SELECT_RECRUITMENT_BY_ID);
@@ -74,6 +89,12 @@ public class RecruitmentDaoImpl implements RecruitmentDao {
     public List<Recruitment> getAllRecruitments() {
 
         return getAllRecruitmentsByQuery(SELECT_ALL_RECRUITMENTS);
+    }
+
+    @Override
+    public List<Recruitment> getAllOpenedOverdueRecruitments() {
+
+        return getAllRecruitmentsByQuery(SELECT_ALL_OPENED_OVERDUE_RECRUITMENTS);
     }
 
 
@@ -168,6 +189,8 @@ public class RecruitmentDaoImpl implements RecruitmentDao {
         }
     }
 
+
+
     @Override
     public boolean closeRecruitment(long recruitmentId) {
         try (Connection con = DBManager.getInstance().getConnection();
@@ -222,13 +245,11 @@ public class RecruitmentDaoImpl implements RecruitmentDao {
     }
 
 
-    private static final String SELECT_ALL_RECRUITMENT_AND_FACULTIES =
-            "SELECT * FROM recruitment\n" +
-                    "JOIN faculty ON recruitment.faculty_id = faculty.id";
+
 
     @Override
     public int getCountOfFacultiesByFilter(String[] filters) {
-        return getAllRecruitmentsByQuery(SELECT_ALL_RECRUITMENT_AND_FACULTIES + getFilterQuery(filters)).size();
+        return getQueryRowCount(SELECT_ALL_RECRUITMENT_AND_FACULTIES + getFilterQuery(filters));
     }
 
     @Override
@@ -298,4 +319,15 @@ public class RecruitmentDaoImpl implements RecruitmentDao {
         return array;
     }
 
+    private int getQueryRowCount(String query){
+        try (Connection con = DBManager.getInstance().getConnection();
+             Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+             ResultSet scrollableRS = statement.executeQuery(query)) {
+            scrollableRS.last();
+            return scrollableRS.getRow();
+        } catch (SQLException e) {
+            logger.error("{}, when trying to get Recruitments rows", e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
 }

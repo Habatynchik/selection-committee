@@ -12,11 +12,13 @@
 
         <div class="card col-4">
             <div class="card-body">
-                <h4 class="fw-bold">General capacity: ${faculty.generalCapacity}</h4>
+                <h4 class="fw-bold"><fmt:message key="viewFaculty.generalCapacity"/>: ${faculty.generalCapacity}</h4>
 
-                <h4 class="fw-bold">Budget capacity: ${faculty.budgetCapacity}</h4>
+                <h4 class="fw-bold"><fmt:message key="viewFaculty.budgetCapacity"/>: ${faculty.budgetCapacity}</h4>
 
-                <h4 class="fw-bold">Required subjects:</h4>
+                <h4 class="fw-bold">
+                    <fmt:message key="viewFaculty.requiredSubjects"/>:
+                </h4>
 
                 <ul class="list-group list-group-flush mt-0 mb-1">
                     <c:forEach var="subject" items="${requiredSubjectList}">
@@ -35,7 +37,7 @@
                             <form action="/view_faculty/delete" method="post">
                                 <input type="hidden" name="facultyId" value="${faculty.id}">
                                 <button class="btn btn-primary  " type="submit">
-                                    Delete
+                                    <fmt:message key="viewFaculty.delete"/>
                                 </button>
                             </form>
                         </div>
@@ -46,7 +48,7 @@
 
                                 <input type="hidden" name="facultyId" value="${faculty.id}">
                                 <button class="btn btn-primary " type="submit">
-                                    Change
+                                    <fmt:message key="viewFaculty.change"/>
                                 </button>
                             </form>
                         </div>
@@ -55,7 +57,7 @@
                             <form action="/add_recruitment" method="get">
                                 <input type="hidden" name="facultyId" value="${faculty.id}">
                                 <button class="btn btn-primary " type="submit">
-                                    Open recruitment
+                                    <fmt:message key="viewFaculty.openRecruitment"/>
                                 </button>
                             </form>
                         </div>
@@ -70,7 +72,9 @@
         </div>
 
         <div class="col text-center">
-            <p>Opened recruitments:</p>
+            <p>
+                <fmt:message key="viewFaculty.openedRecruitments"/>:
+            </p>
 
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <c:forEach var="recruitment" items="${recruitmentsList}">
@@ -98,15 +102,19 @@
 
                                             <c:choose>
                                                 <c:when test="${role == 'ADMIN'}">
-                                                    <button type="submit" class="btn btn-primary disabled">Register
+                                                    <button type="submit" class="btn btn-primary disabled">
+                                                        <fmt:message key="recruitments.register"/>
                                                     </button>
                                                 </c:when>
                                                 <c:when test="${recruitment.closed == true}">
-                                                    <button type="submit" class="btn btn-primary disabled">Register
+                                                    <button type="submit" class="btn btn-primary disabled">
+                                                        <fmt:message key="recruitments.register"/>
                                                     </button>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <button type="submit" class="btn btn-primary ">Register</button>
+                                                    <button type="submit" class="btn btn-primary ">
+                                                        <fmt:message key="recruitments.register"/>
+                                                    </button>
                                                 </c:otherwise>
                                             </c:choose>
                                         </form>
@@ -119,11 +127,14 @@
 
                                                 <c:choose>
                                                     <c:when test="${recruitment.closed == true}">
-                                                        <button type="submit" class="btn btn-primary disabled">Close
+                                                        <button type="submit" class="btn btn-primary disabled">
+                                                            <fmt:message key="recruitments.close"/>
                                                         </button>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <button type="submit" class="btn btn-primary ">Close</button>
+                                                        <button type="submit" class="btn btn-primary ">
+                                                            <fmt:message key="recruitments.close"/>
+                                                        </button>
                                                     </c:otherwise>
                                                 </c:choose>
 

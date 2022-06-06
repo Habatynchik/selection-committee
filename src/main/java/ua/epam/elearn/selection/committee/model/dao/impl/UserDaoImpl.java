@@ -4,8 +4,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.epam.elearn.selection.committee.model.dao.database.DBManager;
 import ua.epam.elearn.selection.committee.model.dao.UserDao;
+import ua.epam.elearn.selection.committee.model.dao.impl.queries.FacultySQLQueries;
 import ua.epam.elearn.selection.committee.model.dao.impl.queries.UserSQLQueries;
 import ua.epam.elearn.selection.committee.model.dao.mapper.UserMapper;
+import ua.epam.elearn.selection.committee.model.entity.Faculty;
 import ua.epam.elearn.selection.committee.model.entity.User;
 
 import java.sql.*;
@@ -105,12 +107,25 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
 
+        return getAllUsersByQuery(UserSQLQueries.SELECT_ALL_USERS);
+    }
+
+    @Override
+    public List<User> getPaginationAllUsers(String order, int limit, int offset) {
+        String query = UserSQLQueries.SELECT_ALL_USERS +
+                getOrderByQuery(order) +
+                getPaginationPageQuery(limit, offset);
+
+        return getAllUsersByQuery(query);
+    }
+
+    private List<User> getAllUsersByQuery(String query){
         List<User> userList = new ArrayList<>();
         try (Connection con = DBManager.getInstance().getConnection();
              Statement stmt = con.createStatement()) {
 
 
-            try (ResultSet rs = stmt.executeQuery(UserSQLQueries.SELECT_ALL_USERS)) {
+            try (ResultSet rs = stmt.executeQuery(query)) {
                 UserMapper userMapper = new UserMapper();
                 while (rs.next()) {
                     userList.add(userMapper.extractFromResultSet(rs));
@@ -173,6 +188,11 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
+    public int getAllUsersSize() {
+        return getQueryRowCount(UserSQLQueries.SELECT_ALL_USERS);
+    }
+
 
     private User getUserByParam(String param, String query) {
         User user = null;
@@ -194,5 +214,25 @@ public class UserDaoImpl implements UserDao {
         }
 
         return user;
+    }
+
+    private String getPaginationPageQuery(int limit, int offset) {
+        return "LIMIT " + limit + " OFFSET " + offset + "\n";
+    }
+
+    private String getOrderByQuery(String order) {
+        return "ORDER BY " + order + "\n";
+    }
+
+    private int getQueryRowCount(String query) {
+        try (Connection con = DBManager.getInstance().getConnection();
+             Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+             ResultSet scrollableRS = statement.executeQuery(query)) {
+            scrollableRS.last();
+            return scrollableRS.getRow();
+        } catch (SQLException e) {
+            logger.error("{}, when trying to get Users rows", e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 }

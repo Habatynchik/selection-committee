@@ -35,6 +35,11 @@ public class FacultyDaoImpl implements FacultyDao {
     }
 
     @Override
+    public int getAllFacultiesSize() {
+        return getQueryRowCount(FacultySQLQueries.SELECT_ALL_FACULTIES);
+    }
+
+    @Override
     public Faculty getFacultyById(long id) {
         return getFacultyByIdAndQuery(id, FacultySQLQueries.SELECT_FACULTY_BY_ID);
     }
@@ -180,5 +185,17 @@ public class FacultyDaoImpl implements FacultyDao {
         if (order.equals("name_z"))
             return "name DESC";
         return order;
+    }
+
+    private int getQueryRowCount(String query){
+        try (Connection con = DBManager.getInstance().getConnection();
+             Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+             ResultSet scrollableRS = statement.executeQuery(query)) {
+            scrollableRS.last();
+            return scrollableRS.getRow();
+        } catch (SQLException e) {
+            logger.error("{}, when trying to get Faculties rows", e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 }
