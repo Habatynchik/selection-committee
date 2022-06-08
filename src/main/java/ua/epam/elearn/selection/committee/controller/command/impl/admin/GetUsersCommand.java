@@ -30,7 +30,7 @@ public class GetUsersCommand implements Command {
 
         int activePageNumber = getActivePageNumber(request);
         String orderBy = getSortFilter(request);
-        int pagesNumber = userService.getCountOfUsers();
+        int pagesNumber = userService.getCountPagesOfUsers();
 
         List<User> userList = userService.getPaginationAllUsers(orderBy, activePageNumber);
 

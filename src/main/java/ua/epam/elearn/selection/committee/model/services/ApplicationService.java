@@ -45,7 +45,6 @@ public class ApplicationService {
                     applicationDao.updateApplicationState(e.getId(), ApplicationState.ACCEPTED_FOR_BUDGET);
                     mailService.sendBudgetMessage(e.getUser().getEmail());
                 });
-        //e.setState(ApplicationState.ACCEPTED_FOR_BUDGET)
 
         applicationList.stream()
                 .skip(faculty.getBudgetCapacity())
@@ -54,7 +53,6 @@ public class ApplicationService {
                     applicationDao.updateApplicationState(e.getId(), ApplicationState.ACCEPTED_FOR_CONTRACT);
                     mailService.sendContractMessage(e.getUser().getEmail());
                 });
-        //e.setState(ApplicationState.ACCEPTED_FOR_CONTRACT)
 
         applicationList.stream()
                 .skip(faculty.getGeneralCapacity())
@@ -62,7 +60,6 @@ public class ApplicationService {
                     applicationDao.updateApplicationState(e.getId(), ApplicationState.REJECTED);
                     mailService.sendBadMessage(e.getUser().getEmail());
                 });
-        //e.setState(ApplicationState.REJECTED
 
         logger.info("All applications in Recruitment ({}) was finalized", recruitmentId);
 

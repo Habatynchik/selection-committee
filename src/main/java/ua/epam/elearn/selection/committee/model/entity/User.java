@@ -4,6 +4,7 @@ import ua.epam.elearn.selection.committee.model.dto.UserDto;
 import ua.epam.elearn.selection.committee.model.entity.enums.Role;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class User implements Serializable {
     private static final long serialVersionUID = 47L;
@@ -219,5 +220,18 @@ public class User implements Serializable {
                 ", blocked=" + blocked +
                 ", role=" + roleId +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && blocked == user.blocked && roleId == user.roleId && Objects.equals(login, user.login) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(firstName, user.firstName) && Objects.equals(secondName, user.secondName) && Objects.equals(patronymic, user.patronymic) && Objects.equals(city, user.city) && Objects.equals(region, user.region) && Objects.equals(institution, user.institution);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, email, password, firstName, secondName, patronymic, city, region, institution, blocked, roleId);
     }
 }

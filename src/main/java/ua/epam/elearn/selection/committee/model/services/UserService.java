@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.epam.elearn.selection.committee.model.dao.UserDao;
 import ua.epam.elearn.selection.committee.model.dto.UserDto;
-import ua.epam.elearn.selection.committee.model.entity.Faculty;
 import ua.epam.elearn.selection.committee.model.entity.User;
 import ua.epam.elearn.selection.committee.model.exception.user.AuthenticationException;
 import ua.epam.elearn.selection.committee.model.exception.user.EmailIsReservedException;
@@ -33,7 +32,7 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public int getCountOfUsers() {
+    public int getCountPagesOfUsers() {
         return (int) Math.ceil(userDao.getAllUsersSize()  / (double) PAGE_SIZE);
     }
 
@@ -45,7 +44,7 @@ public class UserService {
         return userDao.getAllUsers();
     }
 
-    public String getRoleByRoleId(long roleId) throws UserIsBlockedException, AuthenticationException {
+    public String getRoleByRoleId(long roleId){
         return userDao.getRoleByRoleId(roleId);
     }
 

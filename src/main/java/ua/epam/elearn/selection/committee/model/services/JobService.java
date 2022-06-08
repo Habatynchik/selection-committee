@@ -10,8 +10,18 @@ public class JobService implements Runnable {
 
     private static final Logger logger = LogManager.getLogger(JobService.class);
 
-    private final RecruitmentService recruitmentService = ServiceFactory.getInstance().createRecruitmentService();
-    private final ApplicationService applicationService = ServiceFactory.getInstance().createApplicationService();
+    private final RecruitmentService recruitmentService;
+    private final ApplicationService applicationService;
+
+    public JobService() {
+        recruitmentService = ServiceFactory.getInstance().createRecruitmentService();
+        applicationService = ServiceFactory.getInstance().createApplicationService();
+    }
+
+    public JobService(RecruitmentService recruitmentService, ApplicationService applicationService) {
+        this.recruitmentService = recruitmentService;
+        this.applicationService = applicationService;
+    }
 
     @Override
     public void run() {
@@ -24,4 +34,6 @@ public class JobService implements Runnable {
             applicationService.finalizeApplication(recruitment.getId());
         }
     }
+
+
 }

@@ -23,6 +23,7 @@ public interface FacultyDao {
     boolean isExistedByFacultyId(Long facultyId);
 
     boolean delete(Long id);
+
     boolean update(Faculty faculty);
 
     int getAllFacultiesSize();

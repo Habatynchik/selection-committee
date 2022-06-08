@@ -17,8 +17,8 @@ public interface SubjectDao {
     List<Subject> getRequiredSubjectsByRecruitmentId(long recruitmentId);
 
     boolean addRequiredSubjects(long facultyId, List<Long> subjectList);
-    boolean deleteRequiredSubjects(Long facultyId);
 
+    boolean deleteRequiredSubjects(Long facultyId);
 
 
 }

@@ -58,10 +58,6 @@ public class RecruitmentService {
         return recruitmentDao.getNowOpenedRecruitmentsByFacultyId(facultyId);
     }
 
-    public boolean getRecruitmentStatusByFacultyId(long facultyId) {
-        return recruitmentDao.getNowOpenedRecruitmentsByFacultyId(facultyId).isEmpty();
-    }
-
     public Application getRecruitmentApplicationStatusByUserId(long recruitmentId, long userId) {
         return recruitmentDao.getRecruitmentApplicationStatusByUserId(recruitmentId, userId);
     }

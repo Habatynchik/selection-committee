@@ -28,6 +28,7 @@ public class Main {
                 .entrySet()
                 .stream()
                 .map(Map.Entry::getValue)
+                .skip(16)
                 .filter(e -> e.contains("A"))
                 .sorted()
                 .collect(Collectors.toList());
